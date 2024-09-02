@@ -1,6 +1,8 @@
 ﻿@using IQGROUP_test_task.Models;
 @using System.ComponentModel.DataAnnotations;
 @inject HttpClient _http;
+@inject IJSRuntime _jsRuntime;
+@inject IHttpContextAccessor HttpContextAccessor
 
 <button @onclick="ShowPopUp">Войти</button>
 <Popup IsVisible="@popupIsVisible" OnClose="@HandlePopupClose">
@@ -23,7 +25,7 @@
             <InputText id="password"
                        class="form-control"
                        @bind-Value="authUser.Password"
-                       placeholder="Придумайте себе пароль" 
+                       placeholder="Введите свой пароль" 
                        type="@passwordInputType" />
                        <button type="button" @onclick="TogglePasswordVisible">
                            <img src="@visiblePassImgSrc" width="25" height="25"/>
@@ -56,6 +58,9 @@
             }
             else
             {
+                HttpContextAccessor.HttpContext.Items.TryGetValue("Authorization", out var values);
+                string token = values.ToString();
+                await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "jwt-token", token);
                 // log
                 HandlePopupClose(false);
             }

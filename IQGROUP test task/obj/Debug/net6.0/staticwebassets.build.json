@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "M9KbUheLfyWdiOspeDt5uIQD0cGlEqh2v6q/JAk27NU=",
+  "Hash": "ssuLsKna/q/5h2yUFHOU1ucM9Ut0FPyzFKhBXCfmp1Q=",
   "Source": "IQGROUP test task",
   "BasePath": "_content/IQGROUP test task",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "IQGROUP test task\\wwwroot",
       "Source": "IQGROUP test task",
-      "ContentRoot": "C:\\Users\\gamer\\source\\repos\\IQGROUP test task\\IQGROUP test task\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\",
       "BasePath": "_content/IQGROUP test task",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\Users\\gamer\\source\\repos\\IQGROUP test task\\IQGROUP test task\\obj\\Debug\\net6.0\\scopedcss\\bundle\\IQGROUP test task.styles.css",
+      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\obj\\Debug\\net6.0\\scopedcss\\bundle\\IQGROUP test task.styles.css",
       "SourceId": "IQGROUP test task",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\gamer\\source\\repos\\IQGROUP test task\\IQGROUP test task\\obj\\Debug\\net6.0\\scopedcss\\bundle\\",
+      "ContentRoot": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\obj\\Debug\\net6.0\\scopedcss\\bundle\\",
       "BasePath": "_content/IQGROUP test task",
       "RelativePath": "IQGROUP test task.styles.css",
       "AssetKind": "All",
@@ -33,13 +33,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\gamer\\source\\repos\\IQGROUP test task\\IQGROUP test task\\obj\\Debug\\net6.0\\scopedcss\\bundle\\IQGROUP test task.styles.css"
+      "OriginalItemSpec": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\obj\\Debug\\net6.0\\scopedcss\\bundle\\IQGROUP test task.styles.css"
     },
     {
-      "Identity": "C:\\Users\\gamer\\source\\repos\\IQGROUP test task\\IQGROUP test task\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\IQGROUP test task.bundle.scp.css",
+      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\IQGROUP test task.bundle.scp.css",
       "SourceId": "IQGROUP test task",
       "SourceType": "Computed",
-      "ContentRoot": "C:\\Users\\gamer\\source\\repos\\IQGROUP test task\\IQGROUP test task\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\",
+      "ContentRoot": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/IQGROUP test task",
       "RelativePath": "IQGROUP test task.bundle.scp.css",
       "AssetKind": "All",
@@ -52,13 +52,13 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "C:\\Users\\gamer\\source\\repos\\IQGROUP test task\\IQGROUP test task\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\IQGROUP test task.bundle.scp.css"
+      "OriginalItemSpec": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\IQGROUP test task.bundle.scp.css"
     },
     {
-      "Identity": "C:\\Users\\gamer\\source\\repos\\IQGROUP test task\\IQGROUP test task\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
       "SourceId": "IQGROUP test task",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\gamer\\source\\repos\\IQGROUP test task\\IQGROUP test task\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\",
       "BasePath": "_content/IQGROUP test task",
       "RelativePath": "css/bootstrap/bootstrap.min.css",
       "AssetKind": "All",
@@ -74,10 +74,10 @@
       "OriginalItemSpec": "wwwroot\\css\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Users\\gamer\\source\\repos\\IQGROUP test task\\IQGROUP test task\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
       "SourceId": "IQGROUP test task",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\gamer\\source\\repos\\IQGROUP test task\\IQGROUP test task\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\",
       "BasePath": "_content/IQGROUP test task",
       "RelativePath": "css/bootstrap/bootstrap.min.css.map",
       "AssetKind": "All",
@@ -93,10 +93,10 @@
       "OriginalItemSpec": "wwwroot\\css\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Identity": "C:\\Users\\gamer\\source\\repos\\IQGROUP test task\\IQGROUP test task\\wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css",
+      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css",
       "SourceId": "IQGROUP test task",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\gamer\\source\\repos\\IQGROUP test task\\IQGROUP test task\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\",
       "BasePath": "_content/IQGROUP test task",
       "RelativePath": "css/open-iconic/font/css/open-iconic-bootstrap.min.css",
       "AssetKind": "All",
@@ -112,10 +112,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\css\\open-iconic-bootstrap.min.css"
     },
     {
-      "Identity": "C:\\Users\\gamer\\source\\repos\\IQGROUP test task\\IQGROUP test task\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot",
+      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot",
       "SourceId": "IQGROUP test task",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\gamer\\source\\repos\\IQGROUP test task\\IQGROUP test task\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\",
       "BasePath": "_content/IQGROUP test task",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.eot",
       "AssetKind": "All",
@@ -131,10 +131,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.eot"
     },
     {
-      "Identity": "C:\\Users\\gamer\\source\\repos\\IQGROUP test task\\IQGROUP test task\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf",
+      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf",
       "SourceId": "IQGROUP test task",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\gamer\\source\\repos\\IQGROUP test task\\IQGROUP test task\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\",
       "BasePath": "_content/IQGROUP test task",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.otf",
       "AssetKind": "All",
@@ -150,10 +150,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.otf"
     },
     {
-      "Identity": "C:\\Users\\gamer\\source\\repos\\IQGROUP test task\\IQGROUP test task\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg",
+      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg",
       "SourceId": "IQGROUP test task",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\gamer\\source\\repos\\IQGROUP test task\\IQGROUP test task\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\",
       "BasePath": "_content/IQGROUP test task",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.svg",
       "AssetKind": "All",
@@ -169,10 +169,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.svg"
     },
     {
-      "Identity": "C:\\Users\\gamer\\source\\repos\\IQGROUP test task\\IQGROUP test task\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf",
+      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf",
       "SourceId": "IQGROUP test task",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\gamer\\source\\repos\\IQGROUP test task\\IQGROUP test task\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\",
       "BasePath": "_content/IQGROUP test task",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.ttf",
       "AssetKind": "All",
@@ -188,10 +188,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.ttf"
     },
     {
-      "Identity": "C:\\Users\\gamer\\source\\repos\\IQGROUP test task\\IQGROUP test task\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff",
+      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff",
       "SourceId": "IQGROUP test task",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\gamer\\source\\repos\\IQGROUP test task\\IQGROUP test task\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\",
       "BasePath": "_content/IQGROUP test task",
       "RelativePath": "css/open-iconic/font/fonts/open-iconic.woff",
       "AssetKind": "All",
@@ -207,10 +207,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\font\\fonts\\open-iconic.woff"
     },
     {
-      "Identity": "C:\\Users\\gamer\\source\\repos\\IQGROUP test task\\IQGROUP test task\\wwwroot\\css\\open-iconic\\FONT-LICENSE",
+      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\css\\open-iconic\\FONT-LICENSE",
       "SourceId": "IQGROUP test task",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\gamer\\source\\repos\\IQGROUP test task\\IQGROUP test task\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\",
       "BasePath": "_content/IQGROUP test task",
       "RelativePath": "css/open-iconic/FONT-LICENSE",
       "AssetKind": "All",
@@ -226,10 +226,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\FONT-LICENSE"
     },
     {
-      "Identity": "C:\\Users\\gamer\\source\\repos\\IQGROUP test task\\IQGROUP test task\\wwwroot\\css\\open-iconic\\ICON-LICENSE",
+      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\css\\open-iconic\\ICON-LICENSE",
       "SourceId": "IQGROUP test task",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\gamer\\source\\repos\\IQGROUP test task\\IQGROUP test task\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\",
       "BasePath": "_content/IQGROUP test task",
       "RelativePath": "css/open-iconic/ICON-LICENSE",
       "AssetKind": "All",
@@ -245,10 +245,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\ICON-LICENSE"
     },
     {
-      "Identity": "C:\\Users\\gamer\\source\\repos\\IQGROUP test task\\IQGROUP test task\\wwwroot\\css\\open-iconic\\README.md",
+      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\css\\open-iconic\\README.md",
       "SourceId": "IQGROUP test task",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\gamer\\source\\repos\\IQGROUP test task\\IQGROUP test task\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\",
       "BasePath": "_content/IQGROUP test task",
       "RelativePath": "css/open-iconic/README.md",
       "AssetKind": "All",
@@ -264,10 +264,10 @@
       "OriginalItemSpec": "wwwroot\\css\\open-iconic\\README.md"
     },
     {
-      "Identity": "C:\\Users\\gamer\\source\\repos\\IQGROUP test task\\IQGROUP test task\\wwwroot\\css\\site.css",
+      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\css\\site.css",
       "SourceId": "IQGROUP test task",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\gamer\\source\\repos\\IQGROUP test task\\IQGROUP test task\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\",
       "BasePath": "_content/IQGROUP test task",
       "RelativePath": "css/site.css",
       "AssetKind": "All",
@@ -283,10 +283,10 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
-      "Identity": "C:\\Users\\gamer\\source\\repos\\IQGROUP test task\\IQGROUP test task\\wwwroot\\favicon.ico",
+      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\favicon.ico",
       "SourceId": "IQGROUP test task",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\gamer\\source\\repos\\IQGROUP test task\\IQGROUP test task\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\",
       "BasePath": "_content/IQGROUP test task",
       "RelativePath": "favicon.ico",
       "AssetKind": "All",
@@ -302,10 +302,10 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "C:\\Users\\gamer\\source\\repos\\IQGROUP test task\\IQGROUP test task\\wwwroot\\hide.png",
+      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\hide.png",
       "SourceId": "IQGROUP test task",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\gamer\\source\\repos\\IQGROUP test task\\IQGROUP test task\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\",
       "BasePath": "_content/IQGROUP test task",
       "RelativePath": "hide.png",
       "AssetKind": "All",
@@ -321,10 +321,10 @@
       "OriginalItemSpec": "wwwroot\\hide.png"
     },
     {
-      "Identity": "C:\\Users\\gamer\\source\\repos\\IQGROUP test task\\IQGROUP test task\\wwwroot\\visible.png",
+      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\visible.png",
       "SourceId": "IQGROUP test task",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\Users\\gamer\\source\\repos\\IQGROUP test task\\IQGROUP test task\\wwwroot\\",
+      "ContentRoot": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\",
       "BasePath": "_content/IQGROUP test task",
       "RelativePath": "visible.png",
       "AssetKind": "All",

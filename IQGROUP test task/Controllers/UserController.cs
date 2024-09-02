@@ -8,11 +8,13 @@ namespace IQGROUP_test_task.Controllers
     public class UserController : Controller
     {
         IUserService _userService;
+        ITokenService _tokenService;
         ILogger<UserController> _logger;
 
-        public UserController(IUserService userService, ILogger<UserController> logger)
+        public UserController(IUserService userService, ITokenService tokenService, ILogger<UserController> logger)
         {
             _userService = userService;
+            _tokenService = tokenService;
             _logger = logger;
         }
         // GET: api/users
@@ -77,6 +79,24 @@ namespace IQGROUP_test_task.Controllers
                 else
                 {
                     // log
+                    string token = _tokenService.GenerateJwtToken(user);
+                    if (token is null)
+                    {
+                        // log
+                        return Ok("Ошибка аутентификации из-за сервера");
+                    }
+                    Response.Headers.Add("Authorization", $"Bearer {token}");
+
+                    string refreshToken = _tokenService.GenerateRefreshToken();
+
+                    Response.Cookies.Append("RefreshToken", refreshToken, new CookieOptions
+                    {
+                        HttpOnly = true,
+                        Secure = true,
+                        SameSite = SameSiteMode.Strict,
+                        Expires = DateTimeOffset.UtcNow.AddHours(1)
+                    });
+
                     return Ok(user);
                 }
             }
@@ -104,7 +124,27 @@ namespace IQGROUP_test_task.Controllers
                 try
                 {
                     await _userService.InsertOneAsync(user);
-                    return Ok(user.Login);
+
+                    // log
+                    string token = _tokenService.GenerateJwtToken(user);
+                    if (token is null)
+                    {
+                        // log
+                        return Ok("Ошибка регистрации из-за сервера");
+                    }
+                    Response.Headers.Add("Authorization", $"Bearer {token}");
+
+                    string refreshToken = _tokenService.GenerateRefreshToken();
+
+                    Response.Cookies.Append("RefreshToken", refreshToken, new CookieOptions
+                    {
+                        HttpOnly = true,
+                        Secure = true,
+                        SameSite = SameSiteMode.Strict,
+                        Expires = DateTimeOffset.UtcNow.AddHours(1)
+                    });
+
+                    return Ok(user);
                     // log
                 }
                 catch (Exception ex)

@@ -1,9 +1,13 @@
 using IQGROUP_test_task;
 using IQGROUP_test_task.Data;
 using IQGROUP_test_task.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 using MongoDB.Driver;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using IQGROUP_test_task.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +22,7 @@ var builder = WebApplication.CreateBuilder(args);
 //});
 
 // Add services to the container.
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddRazorPages();
 builder.Services.AddScoped(sp => 
 new HttpClient 
@@ -29,7 +34,20 @@ builder.Services.AddSingleton<WeatherForecastService>();
 
 builder.Services.AddControllers();
 
-builder.Services.AddAuthentication();
+var _configuration = builder.Configuration;
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidIssuer = _configuration["JwtSettings:Issuer"],
+        ValidAudience = _configuration["JwtSettings:Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSettings:Key"]))
+    };
+});
 builder.Services.AddAuthorization();
 
 
@@ -56,7 +74,6 @@ builder.Services.AddTransient<ITokenService, TokenService>();
 
 
 builder.Services.AddLogging();
-
 
 var app = builder.Build();
 
@@ -88,5 +105,7 @@ app.MapHub<ColorThemeHub>("/color-theme-hub");
 //app.UseCors("local");
 
 app.MapControllers();
+
+app.UseMiddleware<AuthorizeHeadersMiddleware>();
 
 app.Run();

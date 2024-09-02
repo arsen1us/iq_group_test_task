@@ -4,5 +4,7 @@
     {
         public string GenerateJwtToken(UserModel user);
         public string GenerateRefreshToken();
+
+        public Task<string> UpdateJwtToken(string token);
     }
 }

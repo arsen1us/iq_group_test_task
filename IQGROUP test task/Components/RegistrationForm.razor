@@ -1,6 +1,7 @@
 ﻿
 @using System.ComponentModel.DataAnnotations;
 @inject HttpClient _httpClient;
+@inject IJSRuntime _jsRuntime
 
 <button @onclick="ShowPopUp">Регистрация</button>
 <Popup IsVisible="@popupIsVisible" OnClose="@HandlePopupClose">
@@ -88,9 +89,12 @@
         if(response.IsSuccessStatusCode)
         {
             string data = await response.Content.ReadAsStringAsync();
-            if(data is null)
+            if(data != null)
             {
                 // log
+                response.Headers.TryGetValues("Authorization", out var values);
+                string token = values.ToString();
+                await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "jwt-token", token);
                 HandlePopupClose(false);
             }
             else
