@@ -1,0 +1,73 @@
+# Папки сборки
+bin/
+obj/
+
+# Файлы конфигурации среды разработки
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Папки платформы Visual Studio
+.vs/
+
+# Файлы пакетного менеджера NuGet
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+
+# Файлы публикации
+publish/
+out/
+
+# Логи и временные файлы
+*.log
+**/logs/
+*.ds_store
+*.swp
+*._*
+
+# Файлы настройки среды
+.env
+.env.local
+.env.*.local
+
+# Файлы кэша
+**/cache/
+**/tmp/
+
+# Конфиденциальные данные
+appsettings.Development.json
+secrets.json
+
+# Файлы тестирования
+TestResult*/
+*.trx
+*.coverage
+*.coveragexml
+
+# Файлы ресурсов
+*.psd
+*.ai
+*.eps
+
+# Файлы OS
+Thumbs.db
+ehthumbs.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# Файлы IDE JetBrains Rider
+.idea/
+*.iml
+
+# Файлы редактора Visual Studio Code
+.vscode/
+
+# Файлы редактора Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# Файлы MacOS
+.DS_Store

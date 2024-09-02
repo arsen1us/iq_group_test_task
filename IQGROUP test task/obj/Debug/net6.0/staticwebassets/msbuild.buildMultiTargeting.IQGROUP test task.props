@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\IQGROUP test task.props" />
+</Project>

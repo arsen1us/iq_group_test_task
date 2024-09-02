@@ -1,0 +1,87 @@
+﻿@using IQGROUP_test_task.Models;
+@using System.ComponentModel.DataAnnotations;
+@inject HttpClient _http;
+
+<button @onclick="ShowPopUp">Войти</button>
+<Popup IsVisible="@popupIsVisible" OnClose="@HandlePopupClose">
+    <h3>С возвращением!</h3>
+
+    <EditForm Model="@authUser" OnValidSubmit="@HandleAuthAsync">
+        <DataAnnotationsValidator />
+        <DataAnnotationsValidator />
+        <div class="form-group">
+            <label for="email">Почта</label>
+            <InputText id="email"
+                       class="form-control"
+                       @bind-Value="authUser.Email"
+                       placeholder="Введите свою почту" />
+            <ValidationMessage For="@(() => authUser.Email)" />
+        </div>
+
+        <div class="form-group">
+            <label for="password">Пароль</label>
+            <InputText id="password"
+                       class="form-control"
+                       @bind-Value="authUser.Password"
+                       placeholder="Придумайте себе пароль" 
+                       type="@passwordInputType" />
+                       <button type="button" @onclick="TogglePasswordVisible">
+                           <img src="@visiblePassImgSrc" width="25" height="25"/>
+                       </button>
+            <ValidationMessage For="@(() => authUser.Password)" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Войти</button>
+    </EditForm>
+</Popup>
+@code {
+    private AuthUserModel authUser = new AuthUserModel();
+
+    private bool popupIsVisible = false;
+    // Показать/скрыть видимость пароля
+
+    private bool isPasswordVisible = false;
+    private string passwordInputType => isPasswordVisible ? "text" : "password";
+    private string visiblePassImgSrc => isPasswordVisible ? "/visible.png" : "/hide.png";
+    // Отправить запрос на аутентификацию
+
+    private async Task HandleAuthAsync()
+    {
+        var response = await _http.PostAsJsonAsync("api/user/auth", authUser);
+        if(response.IsSuccessStatusCode)
+        {
+            if(response.Content is null)
+            {
+                // log
+            }
+            else
+            {
+                // log
+                HandlePopupClose(false);
+            }
+        }
+        else
+        {
+            // log
+        }
+    }
+    // Скрыть/открыть пароль
+
+    private async Task TogglePasswordVisible()
+    {
+        isPasswordVisible = !isPasswordVisible;
+    }
+
+    private void ShowPopUp()
+    {
+        popupIsVisible = true;
+    }
+
+    private void HandlePopupClose(bool isVisible)
+    {
+        popupIsVisible = isVisible;
+    }
+} 
+
+
+

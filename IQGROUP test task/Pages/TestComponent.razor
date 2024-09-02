@@ -1,0 +1,19 @@
+﻿@page "/test-counter"
+<h3>testComponent</h3>
+<button onclick="@Count">
+    add one and another one
+</button>
+<p>
+    @counter
+</p>
+@code {
+    private int counter = 0;
+
+    private void Count()
+    {
+        counter++;
+    }
+}
+<script>
+    localStorage.setItem()
+</script>

@@ -1,0 +1,11 @@
+﻿@page "/"
+@namespace IQGROUP_test_task.Pages
+@using IQGROUP_test_task.Components;
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "_Layout";
+}
+<component type="typeof(RegistrationForm)" render-mode="ServerPrerendered" />
+<component type="typeof(AuthenticationForm)" render-mode="ServerPrerendered" />
+<component type="typeof(App)" render-mode="ServerPrerendered" />
+

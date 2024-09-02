@@ -1,0 +1,45 @@
+﻿<div class="popup-backdrop" @onclick="InsidePopupClick" style="@(IsVisible ? "display: block;" : "display: none;")">
+    <div class="popup-window" @onclick="InPopupClick">
+        <div class="popup-header">
+            <button @onclick="ClosePopup" class="close-button">X</button>
+        </div>
+        <div class="popup-body">
+            @ChildContent
+        </div>
+    </div>
+</div>
+@code {
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public bool IsVisible { get; set; } = false;
+    [Parameter] public EventCallback<bool> OnClose { get; set; }
+    private bool _clickInsidePopup = false;
+
+    private void ClosePopup()
+    {
+        IsVisible = false;
+        OnClose.InvokeAsync(IsVisible);
+    }
+
+    private void InPopupClick()
+    {
+        _clickInsidePopup = true;
+    }
+
+    private void InsidePopupClick()
+    {
+        if(!_clickInsidePopup)
+        {
+            ClosePopup();
+        }
+        _clickInsidePopup = false;
+    }
+
+    @* @onkeydown="HandleEscapeKeyDown" *@
+    // private void HandleEscapeKeyDown(KeyboardEventArgs e)
+    // {
+    //     if (e.Key == "Escape")
+    //     {
+    //         ClosePopup();
+    //     }
+    // }
+}

@@ -1,0 +1,180 @@
+﻿
+@using System.ComponentModel.DataAnnotations;
+@inject HttpClient _httpClient;
+
+<button @onclick="ShowPopUp">Регистрация</button>
+<Popup IsVisible="@popupIsVisible" OnClose="@HandlePopupClose">
+    <h3>Станьте частью команды!</h3>
+
+    <EditForm Model="@regUser" OnValidSubmit="@HandleRegisterAsync">
+        <DataAnnotationsValidator />
+
+        <div class="form-group">
+            <label for="login">Логин</label>
+            <InputText id="login"
+                       class="form-control"
+                       @bind-Value="regUser.Login"
+                       placeholder="Придумайте логин" 
+                       @onblur="CheckLoginAvailability" />
+            <ValidationMessage For="@(() => regUser.Login)" />
+            @loginAvailability
+        </div>
+
+        <div class="form-group">
+            <label for="email">Почта</label>
+            <InputText id="email"
+                       class="form-control"
+                       @bind-Value="regUser.Email"
+                       placeholder="Введите свою почту" 
+                       @onblur="CheckEmailAvailability"/>
+            <ValidationMessage For="@(() => regUser.Email)" />
+            <p>@emailAvailability</p>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Пароль</label>
+            <InputText id="password"
+                       class="form-control"
+                       @bind-Value="regUser.Password"
+                       placeholder="Придумайте себе пароль" 
+                       type="@passwordInputType" />
+                       <button type="button" @onclick="TogglePasswordVisible">
+                           <img src="@visiblePassImgSrc" width="25" height="25"/>
+                       </button>
+            <ValidationMessage For="@(() => regUser.Password)" />
+        </div>
+
+        <div class="form-group">
+            <label for="confirmPassword">Подтверждение пароля</label>
+            <InputText id="confirmPassword"
+                       class="form-control"
+                       @bind-Value="regUser.ConfirmPassword"
+                       placeholder="Введите пароль ещё раз"
+                       type="@confirmPasswordInputType" />
+                       <button type="button" @onclick="ToggleConfirmPasswordVisible">
+                            <img src="@visibleConfirmPassImgSrc" width="25" height="25"/>
+                       </button>
+            <ValidationMessage For="@(() => regUser.ConfirmPassword)" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+    </EditForm>
+</Popup>
+
+
+@code {
+    private RegUserModel regUser = new RegUserModel();
+
+    private bool popupIsVisible = false;
+
+    private string loginAvailability = "";
+    private string emailAvailability = "";
+    // Показать/скрыть видимость пароля
+
+    private bool isPasswordVisible = false;
+    private string passwordInputType => isPasswordVisible ? "text" : "password";
+    private string visiblePassImgSrc => isPasswordVisible ? "/visible.png" : "/hide.png";
+    // Показать/скрыть видимость подтверждения пароля
+
+    private bool isConfirmPasswordVisible = false;
+    private string confirmPasswordInputType => isConfirmPasswordVisible ? "text" : "password";
+    private string visibleConfirmPassImgSrc => isConfirmPasswordVisible ? "/visible.png" : "/hide.png";
+    // Отправить запрос на рагистрацию
+
+    private async Task HandleRegisterAsync()
+    {
+        var response = await _httpClient.PostAsJsonAsync("api/user/reg", regUser);
+
+        if(response.IsSuccessStatusCode)
+        {
+            string data = await response.Content.ReadAsStringAsync();
+            if(data is null)
+            {
+                // log
+                HandlePopupClose(false);
+            }
+            else
+            {
+                // log
+            }
+        }
+        else
+        {
+            // log failed request
+        }
+    }
+    // Проверка логина на уникальность
+
+    private async Task CheckLoginAvailability()
+    {
+        bool isAvailable;
+        var response = await _httpClient.PostAsJsonAsync("api/user/check-login", regUser.Login);
+        if (response.IsSuccessStatusCode)
+        {
+            var content = await response.Content.ReadAsStringAsync();
+            if(content is null)
+            {
+                // log
+            }
+            else
+            {
+                // log
+                bool.TryParse(content, out isAvailable);
+                loginAvailability = isAvailable == true ? "Логин доступен" : "Логин занят";
+            }
+        }
+        else
+        {
+            // log
+        }
+    }
+    // Проверка почты на уникальность
+
+    private async Task CheckEmailAvailability()
+    {
+        bool isAvailable;
+        var response = await _httpClient.PostAsJsonAsync("api/user/check-email", regUser.Email);
+        if (response.IsSuccessStatusCode)
+        {
+            var content = await response.Content.ReadAsStringAsync();
+            if (content is null)
+            {
+                // log
+            }
+            else
+            {
+                // log
+                bool.TryParse(content, out isAvailable);
+                emailAvailability = isAvailable == true ? "Почта доступна" : "Почта занята";
+            }
+        }
+        else
+        {
+            // log
+        }
+    }
+    // Открыть попап
+
+    private void ShowPopUp()
+    {
+        popupIsVisible = true;
+    }
+    // Закрыть попап
+
+    private void HandlePopupClose(bool isVisible)
+    {
+        popupIsVisible = isVisible;
+    }
+    // Скрыть/открыть пароль
+
+    private async Task TogglePasswordVisible()
+    {
+        isPasswordVisible = !isPasswordVisible;
+    }
+    // Скрыть/открыть подтверждение пароля
+
+    private async Task ToggleConfirmPasswordVisible()
+    {
+        isConfirmPasswordVisible = !isConfirmPasswordVisible;
+    }
+}

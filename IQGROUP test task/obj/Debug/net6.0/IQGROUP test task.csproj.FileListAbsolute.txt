@@ -1,0 +1,67 @@
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\appsettings.Development.json
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\appsettings.json
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\IQGROUP test task.staticwebassets.runtime.json
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\IQGROUP test task.exe
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\IQGROUP test task.deps.json
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\IQGROUP test task.runtimeconfig.json
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\IQGROUP test task.dll
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\IQGROUP test task.pdb
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\obj\Debug\net6.0\IQGROUP test task.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\obj\Debug\net6.0\IQGROUP test task.AssemblyInfoInputs.cache
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\obj\Debug\net6.0\IQGROUP test task.AssemblyInfo.cs
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\obj\Debug\net6.0\IQGROUP test task.csproj.CoreCompileInputs.cache
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\obj\Debug\net6.0\IQGROUP test task.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\obj\Debug\net6.0\IQGROUP test task.RazorAssemblyInfo.cache
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\obj\Debug\net6.0\IQGROUP test task.RazorAssemblyInfo.cs
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\obj\Debug\net6.0\staticwebassets.build.json
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\obj\Debug\net6.0\staticwebassets.development.json
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\obj\Debug\net6.0\staticwebassets\msbuild.IQGROUP test task.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\obj\Debug\net6.0\staticwebassets\msbuild.build.IQGROUP test task.props
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.IQGROUP test task.props
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.IQGROUP test task.props
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\obj\Debug\net6.0\staticwebassets.pack.json
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\obj\Debug\net6.0\scopedcss\Shared\MainLayout.razor.rz.scp.css
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\obj\Debug\net6.0\scopedcss\Shared\NavMenu.razor.rz.scp.css
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\obj\Debug\net6.0\scopedcss\bundle\IQGROUP test task.styles.css
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\obj\Debug\net6.0\scopedcss\projectbundle\IQGROUP test task.bundle.scp.css
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\obj\Debug\net6.0\IQGROUP test task.dll
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\obj\Debug\net6.0\refint\IQGROUP test task.dll
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\obj\Debug\net6.0\IQGROUP test task.pdb
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\obj\Debug\net6.0\IQGROUP test task.genruntimeconfig.cache
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\obj\Debug\net6.0\ref\IQGROUP test task.dll
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\AWSSDK.Core.dll
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\AWSSDK.SecurityToken.dll
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\DnsClient.dll
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\MongoDB.Bson.dll
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\MongoDB.Driver.dll
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\MongoDB.Driver.Core.dll
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\MongoDB.Libmongocrypt.dll
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\SharpCompress.dll
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\Snappier.dll
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\ZstdSharp.dll
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\runtimes\linux\native\libmongocrypt.so
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\runtimes\osx\native\libmongocrypt.dylib
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\runtimes\win\native\mongocrypt.dll
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\obj\Debug\net6.0\IQGROUP test task.csproj.AssemblyReference.cache
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\obj\Debug\net6.0\IQGROUP test task.csproj.CopyComplete
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\Microsoft.AspNetCore.Connections.Abstractions.dll
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\Microsoft.AspNetCore.Http.Connections.Client.dll
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\Microsoft.AspNetCore.Http.Connections.Common.dll
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\Microsoft.AspNetCore.SignalR.Client.dll
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\Microsoft.AspNetCore.SignalR.Client.Core.dll
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\Microsoft.AspNetCore.SignalR.Common.dll
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\Microsoft.AspNetCore.SignalR.Protocols.Json.dll
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\Microsoft.Bcl.TimeProvider.dll
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\Microsoft.Extensions.Features.dll
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\Microsoft.Extensions.Logging.dll
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\System.IO.Pipelines.dll
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\System.Text.Encodings.Web.dll
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\System.Text.Json.dll
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\System.Threading.Channels.dll
+C:\Users\gamer\source\repos\IQGROUP test task\IQGROUP test task\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
