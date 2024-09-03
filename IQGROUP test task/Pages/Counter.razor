@@ -10,37 +10,36 @@
 @using System.Text.Json;
 
 <PageTitle>Counter</PageTitle>
-<CascadingAuthenticationState>
-    <AuthorizeView>
-        <Authorized>
-            <h1>Counter</h1>
-    
-            <p role="status">Current count: @currentCount</p>
-            <p>Message for current user</p>
-            <p class="@m">@m</p>
-            <p>Message for others users</p>
-            <p>@otherM</p>
-            <p>Connection state</p>
-            <p>@connectionState</p>
-            <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
-            <button @onclick="Send">Send to signalR</button>
-    
-            <h3>Connected Users</h3>
-            <ul>
-                @foreach (var user in usersList)
-                {
-                    <li>@user</li>
-                }
-            </ul>
-        </Authorized>
-    </AuthorizeView>
-    
-    <AuthorizeView>
-        <NotAuthorized>
-            <p>You are not authorized!</p>
-        </NotAuthorized>
-    </AuthorizeView> 
-</CascadingAuthenticationState>
+<AuthorizeView>
+    <Authorized>
+        <h1>Counter</h1>
+
+        <p role="status">Current count: @currentCount</p>
+        <p>Message for current user</p>
+        <p class="@m">@m</p>
+        <p>Message for others users</p>
+        <p>@otherM</p>
+        <p>Connection state</p>
+        <p>@connectionState</p>
+        <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+        <button @onclick="Send">Send to signalR</button>
+
+        <h3>Connected Users</h3>
+        <ul>
+            @foreach (var user in usersList)
+            {
+                <li>@user</li>
+            }
+        </ul>
+    </Authorized>
+</AuthorizeView>
+
+<AuthorizeView>
+    <NotAuthorized>
+        <p>You are not authorized!</p>
+    </NotAuthorized>
+</AuthorizeView> 
+
 @code {
     private List<string> usersList = new List<string>();
     private int currentCount = 0;

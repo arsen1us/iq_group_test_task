@@ -77,14 +77,14 @@ builder.Services.AddSingleton<IMongoClient, MongoClient>(options =>
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<ITokenService, TokenService>();
 
-builder.Services.AddScoped<AuthenticationStateProvider, JwtAuthenticationStateProvider>();
-
 // Получить header авторизации в компоненте Blazor
 //builder.Services.AddSingleton<IAuthorizationService, AuthorizationService>();
 //builder.Services.AddScoped<AuthorizationService>();
 
 builder.Services.AddLogging();
 builder.Services.AddBlazoredLocalStorage();
+
+builder.Services.AddScoped<AuthenticationStateProvider, JwtAuthenticationStateProvider>();
 
 var app = builder.Build();
 

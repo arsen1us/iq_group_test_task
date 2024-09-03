@@ -1,6 +1,8 @@
 ﻿@using System.Text.Json;
 @inject HttpClient _httpClient
-
+<CascadingAuthenticationState>
+    <AuthorizeView>
+        <Authorized>
 <div>
     <div>
         <h3>
@@ -113,6 +115,15 @@
         </div>
     </div>
 </div>
+        </Authorized>
+        <NotAuthorized>
+            <div>
+                <h3>Войдите, чтобы увидеть список пользователей</h3>
+            </div>
+        </NotAuthorized>
+
+    </AuthorizeView>
+</CascadingAuthenticationState>
 @code{
     private List<UserModel> usersList = new List<UserModel>();
 

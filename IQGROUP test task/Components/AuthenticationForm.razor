@@ -47,6 +47,11 @@
     private string visiblePassImgSrc => isPasswordVisible ? "/visible.png" : "/hide.png";
     // Отправить запрос на аутентификацию
 
+    protected override async Task OnInitializedAsync()
+    {
+
+    }
+
     private async Task HandleAuthAsync()
     {
         var response = await _http.PostAsJsonAsync("api/user/auth", authUser);
@@ -61,7 +66,12 @@
                 var content = await response.Content.ReadFromJsonAsync<AuthResponseModel>();
                 var token = content.JwtToken;
                 await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "jwt-token", token);
-                await _authProvider.GetAuthenticationStateAsync();
+
+                if(_authProvider is JwtAuthenticationStateProvider _jwtAuthProvider)
+                {
+                    await _jwtAuthProvider.GetAuthenticationStateAsync();
+                }
+                
                 HandlePopupClose(false);
             }
         }

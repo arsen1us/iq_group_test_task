@@ -1,4 +1,5 @@
 ﻿
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace IQGROUP_test_task.Models
@@ -158,12 +159,13 @@ namespace IQGROUP_test_task.Models
             }
         }
 
-        public async Task DeleteAsync(string id)
+        public async Task DeleteAsync(string _id)
         {
             try
             {
                 // log
-                var filter = Builders<UserModel>.Filter.Eq(u => u._id, "id");
+                var id = new ObjectId(_id);
+                var filter = Builders<UserModel>.Filter.Eq(u => u._id, id.ToString());
                 var deletedResult = await _usersCollection.DeleteOneAsync(filter);
                 
                 if(deletedResult.DeletedCount > 0)
@@ -182,6 +184,10 @@ namespace IQGROUP_test_task.Models
             catch (MongoConnectionException ex)
             {
                 // Обработка ошибок соединения с базой данных
+            }
+            catch(ArgumentNullException ex)
+            {
+
             }
             catch (Exception ex)
             {

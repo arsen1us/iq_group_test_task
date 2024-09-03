@@ -12,7 +12,6 @@ namespace IQGROUP_test_task
     {
         HttpClient _httpClient;
         ILocalStorageService _localStorage;
-
         public JwtAuthenticationStateProvider(HttpClient httpClient, ILocalStorageService localStorage)
         {
             _httpClient = httpClient;
@@ -22,23 +21,38 @@ namespace IQGROUP_test_task
 
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
-            string? token = await _localStorage.GetItemAsStringAsync("jwt-token");
-
-            ClaimsIdentity identity = new ClaimsIdentity();
-            _httpClient.DefaultRequestHeaders.Authorization = null;
-
-            if (!string.IsNullOrEmpty(token))
+            try
             {
-                identity = new ClaimsIdentity(ParseClaimsFromJwt(token), "jwt");
+                var token = await _localStorage.GetItemAsStringAsync("jwt-token");
+                ClaimsIdentity identity = new ClaimsIdentity();
+                _httpClient.DefaultRequestHeaders.Authorization = null;
 
-                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Replace("\"", ""));
+                if (!string.IsNullOrEmpty(token))
+                {
+                    identity = new ClaimsIdentity(ParseClaimsFromJwt(token), "jwt");
+
+                    _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Replace("\"", ""));
+                }
+                var user = new ClaimsPrincipal(identity);
+
+                NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(user)));
+
+                return new AuthenticationState(user);
             }
+            catch(Exception ex)
+            {
+                // log
+                _httpClient.DefaultRequestHeaders.Authorization = null;
 
-            var user = new ClaimsPrincipal(identity);
+                await _localStorage.RemoveItemAsync("jwt-token");
 
-            NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(user)));
+                var identity = new ClaimsIdentity();
+                var user = new ClaimsPrincipal(identity);
 
-            return new AuthenticationState(user);
+                NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(user)));
+
+                return new AuthenticationState(user);
+            }
         }
         // Получение claims из payload jwt-токена
 
