@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace IQGROUP_test_task.Models
 {
@@ -11,6 +12,10 @@ namespace IQGROUP_test_task.Models
             Email = email;
             Password = password;
         }
+
+        public UserModel() {}
+
+        [JsonPropertyName("_id")]
         public string _id { get; set; } = null!;
 
         public string Login { get; set; } = null!;

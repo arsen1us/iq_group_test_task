@@ -1,19 +1,12 @@
-﻿@page "/test-counter"
-<h3>testComponent</h3>
-<button onclick="@Count">
-    add one and another one
-</button>
-<p>
-    @counter
-</p>
+﻿@page "/test-page"
+<h3>Test Page</h3>
+<component typeof="typeof(Reg)"></component>
 @code {
-    private int counter = 0;
-
-    private void Count()
-    {
-        counter++;
-    }
+    
 }
-<script>
-    localStorage.setItem()
-</script>
+
+<component type="typeof(RegistrationForm)" render-mode="ServerPrerendered" />
+<component type="typeof(AuthenticationForm)" render-mode="ServerPrerendered" />
+<component type="typeof(UnAuthorizedButton)" render-mode="ServerPrerendered" />
+<component type="typeof(UsersHandlerPanel)" render-mode="ServerPrerendered" />
+<component type="typeof(App)" render-mode="ServerPrerendered" />

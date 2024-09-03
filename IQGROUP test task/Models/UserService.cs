@@ -65,9 +65,33 @@ namespace IQGROUP_test_task.Models
 
         public async Task<List<UserModel>> FindAllAsync()
         {
-            var filter = Builders<UserModel>.Filter.Empty;
-            var cursor = await _usersCollection.FindAsync(filter);
-            return await cursor.ToListAsync();
+            try
+            {
+                var filter = Builders<UserModel>.Filter.Empty;
+                var cursor = await _usersCollection.FindAsync(filter);
+                return await cursor.ToListAsync();
+            }
+            catch (MongoCursorNotFoundException ex)
+            {
+                // Обработка ошибок, связанных с курсором
+                throw new Exception();
+            }
+            catch (MongoQueryException ex)
+            {
+                // Обработка ошибок запроса
+                throw new Exception();
+            }
+            catch (MongoConnectionException ex)
+            {
+                // Обработка ошибок соединения с базой данных
+                throw new Exception();
+            }
+            catch (Exception ex)
+            {
+                // Обработка всех остальных исключений
+                throw new Exception();
+            }
+
         }
         // Получить пользователя по id
 
@@ -85,7 +109,6 @@ namespace IQGROUP_test_task.Models
                 }
                 // Логика получения документа
             }
-
             catch (MongoCursorNotFoundException ex)
             {
                 // Обработка ошибок, связанных с курсором
@@ -135,12 +158,22 @@ namespace IQGROUP_test_task.Models
             }
         }
 
-        public Task DeleteAsync(string id)
+        public async Task DeleteAsync(string id)
         {
-            throw new NotImplementedException();
             try
             {
-                // Логика удаления документа
+                // log
+                var filter = Builders<UserModel>.Filter.Eq(u => u._id, "id");
+                var deletedResult = await _usersCollection.DeleteOneAsync(filter);
+                
+                if(deletedResult.DeletedCount > 0)
+                {
+
+                }
+                else
+                {
+
+                }
             }
             catch (MongoWriteException ex)
             {

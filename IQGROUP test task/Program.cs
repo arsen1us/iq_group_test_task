@@ -8,6 +8,8 @@ using MongoDB.Driver;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using IQGROUP_test_task.Middleware;
+using Blazored.LocalStorage;
+using Microsoft.AspNetCore.Components.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,7 +24,10 @@ var builder = WebApplication.CreateBuilder(args);
 //});
 
 // Add services to the container.
+
+// Объект HttpContextAccessor для сервиса JwtAuthenticationStateProvider
 builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddRazorPages();
 builder.Services.AddScoped(sp => 
 new HttpClient 
@@ -48,7 +53,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSettings:Key"]))
     };
 });
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorizationCore();
 
 
 
@@ -72,8 +77,14 @@ builder.Services.AddSingleton<IMongoClient, MongoClient>(options =>
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<ITokenService, TokenService>();
 
+builder.Services.AddScoped<AuthenticationStateProvider, JwtAuthenticationStateProvider>();
+
+// Получить header авторизации в компоненте Blazor
+//builder.Services.AddSingleton<IAuthorizationService, AuthorizationService>();
+//builder.Services.AddScoped<AuthorizationService>();
 
 builder.Services.AddLogging();
+builder.Services.AddBlazoredLocalStorage();
 
 var app = builder.Build();
 
@@ -106,6 +117,6 @@ app.MapHub<ColorThemeHub>("/color-theme-hub");
 
 app.MapControllers();
 
-app.UseMiddleware<AuthorizeHeadersMiddleware>();
+//app.UseMiddleware<AuthorizeHeadersMiddleware>();
 
 app.Run();

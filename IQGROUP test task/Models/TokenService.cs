@@ -22,10 +22,14 @@ namespace IQGROUP_test_task.Models
         {
             try
             {
+                string role = "default";
+                if (user.Email == "admin" && user.Password == "admin")
+                    role = "admin";
                 List<Claim> claims = new List<Claim>
                 {
                     new Claim("_id", user._id),
-                    new Claim("Email", user.Email)
+                    new Claim("Email", user.Email),
+                    new Claim(ClaimTypes.Role, role)
                 };
 
                 JwtSecurityToken token = new JwtSecurityToken

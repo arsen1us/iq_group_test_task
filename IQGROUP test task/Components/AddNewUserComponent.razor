@@ -2,9 +2,9 @@
 @inject HttpClient _httpClient;
 @inject IJSRuntime _jsRuntime
 
-<button @onclick="ShowPopUp">Регистрация</button>
+<button @onclick="ShowPopUp">Добавить</button>
 <Popup IsVisible="@popupIsVisible" OnClose="@HandlePopupClose">
-    <h3>Станьте частью команды!</h3>
+    <h3>Добавить нового пользователя</h3>
 
     <EditForm Model="@regUser" OnValidSubmit="@HandleRegisterAsync">
         <DataAnnotationsValidator />
@@ -14,7 +14,7 @@
             <InputText id="login"
                        class="form-control"
                        @bind-Value="regUser.Login"
-                       placeholder="Придумайте логин" 
+                       placeholder="Придумайте логин"
                        @onblur="CheckLoginAvailability" />
             <ValidationMessage For="@(() => regUser.Login)" />
             @loginAvailability
@@ -25,8 +25,8 @@
             <InputText id="email"
                        class="form-control"
                        @bind-Value="regUser.Email"
-                       placeholder="Введите свою почту" 
-                       @onblur="CheckEmailAvailability"/>
+                       placeholder="Введите свою почту"
+                       @onblur="CheckEmailAvailability" />
             <ValidationMessage For="@(() => regUser.Email)" />
             <p>@emailAvailability</p>
         </div>
@@ -36,11 +36,11 @@
             <InputText id="password"
                        class="form-control"
                        @bind-Value="regUser.Password"
-                       placeholder="Придумайте себе пароль" 
+                       placeholder="Придумайте себе пароль"
                        type="@passwordInputType" />
-                       <button type="button" @onclick="TogglePasswordVisible">
-                           <img src="@visiblePassImgSrc" width="25" height="25"/>
-                       </button>
+            <button type="button" @onclick="TogglePasswordVisible">
+                <img src="@visiblePassImgSrc" width="25" height="25" />
+            </button>
             <ValidationMessage For="@(() => regUser.Password)" />
         </div>
 
@@ -51,9 +51,9 @@
                        @bind-Value="regUser.ConfirmPassword"
                        placeholder="Введите пароль ещё раз"
                        type="@confirmPasswordInputType" />
-                       <button type="button" @onclick="ToggleConfirmPasswordVisible">
-                            <img src="@visibleConfirmPassImgSrc" width="25" height="25"/>
-                       </button>
+            <button type="button" @onclick="ToggleConfirmPasswordVisible">
+                <img src="@visibleConfirmPassImgSrc" width="25" height="25" />
+            </button>
             <ValidationMessage For="@(() => regUser.ConfirmPassword)" />
         </div>
 
@@ -85,10 +85,10 @@
     {
         var response = await _httpClient.PostAsJsonAsync("api/user/reg", regUser);
 
-        if(response.IsSuccessStatusCode)
+        if (response.IsSuccessStatusCode)
         {
             string data = await response.Content.ReadAsStringAsync();
-            if(data != null)
+            if (data != null)
             {
                 // log
                 response.Headers.TryGetValues("Authorization", out var values);
@@ -115,7 +115,7 @@
         if (response.IsSuccessStatusCode)
         {
             var content = await response.Content.ReadAsStringAsync();
-            if(content is null)
+            if (content is null)
             {
                 // log
             }

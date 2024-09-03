@@ -138,6 +138,7 @@ C:\Users\gamer\Source\Repos\iq_group_test_task\IQGROUP test task\obj\Debug\net6.
 C:\Users\gamer\Source\Repos\iq_group_test_task\IQGROUP test task\obj\Debug\net6.0\scopedcss\Shared\NavMenu.razor.rz.scp.css
 C:\Users\gamer\Source\Repos\iq_group_test_task\IQGROUP test task\obj\Debug\net6.0\scopedcss\bundle\IQGROUP test task.styles.css
 C:\Users\gamer\Source\Repos\iq_group_test_task\IQGROUP test task\obj\Debug\net6.0\scopedcss\projectbundle\IQGROUP test task.bundle.scp.css
-C:\Users\gamer\Source\Repos\iq_group_test_task\IQGROUP test task\obj\Debug\net6.0\IQGROUP .F0DAF4FB.Up2Date
 C:\Users\gamer\Source\Repos\iq_group_test_task\IQGROUP test task\obj\Debug\net6.0\IQGROUP test task.genruntimeconfig.cache
 C:\Users\gamer\Source\Repos\iq_group_test_task\IQGROUP test task\obj\Debug\net6.0\ref\IQGROUP test task.dll
+C:\Users\gamer\Source\Repos\iq_group_test_task\IQGROUP test task\obj\Debug\net6.0\IQGROUP test task.csproj.CopyComplete
+C:\Users\gamer\Source\Repos\iq_group_test_task\IQGROUP test task\bin\Debug\net6.0\Blazored.LocalStorage.dll

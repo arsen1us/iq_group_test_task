@@ -17,16 +17,18 @@ namespace IQGROUP_test_task.Controllers
             _tokenService = tokenService;
             _logger = logger;
         }
-        // GET: api/users
+        // Получить всех пользователей
+        // GET: api/user
 
         [HttpGet]
         public async Task<IActionResult> GetAllAsync()
         {
             try
             {
+                var users = await _userService.FindAllAsync();
                 // log
                 _logger.LogInformation("Get method is success!");
-                return Ok();
+                return Ok(users);
             }
             catch
             {
@@ -34,7 +36,8 @@ namespace IQGROUP_test_task.Controllers
                 return Ok();
             }
         }
-        // GET: api/users/{id}
+        // Получить пользователя по его id
+        // GET: api/user/{id}
 
         [HttpGet]
         [Route("{id}")]
@@ -52,7 +55,8 @@ namespace IQGROUP_test_task.Controllers
                 return Ok();
             }
         }
-        // POST: api/users/auth
+        // Обработать запрос на аутентификацию пользователя
+        // POST: api/user/auth
 
         [HttpPost]
         [Route("auth")]
@@ -79,13 +83,13 @@ namespace IQGROUP_test_task.Controllers
                 else
                 {
                     // log
-                    string token = _tokenService.GenerateJwtToken(user);
-                    if (token is null)
+                    string jwtToken = _tokenService.GenerateJwtToken(user);
+                    if (jwtToken is null)
                     {
                         // log
                         return Ok("Ошибка аутентификации из-за сервера");
                     }
-                    Response.Headers.Add("Authorization", $"Bearer {token}");
+                    Response.Headers.Add("Authorization", $"Bearer {jwtToken}");
 
                     string refreshToken = _tokenService.GenerateRefreshToken();
 
@@ -97,11 +101,21 @@ namespace IQGROUP_test_task.Controllers
                         Expires = DateTimeOffset.UtcNow.AddHours(1)
                     });
 
-                    return Ok(user);
+                    AuthResponseModel response = new AuthResponseModel
+                    {
+                        UserId = user._id,
+                        UserEmail = user.Email,
+                        UserLogin = user.Login,
+                        JwtToken = jwtToken,
+                        RefreshToken = refreshToken
+                    };
+
+                    return Ok(response);
                 }
             }
         }
-        // POST: api/users/reg
+        // Обработать запрос на регистрацию нового пользователя
+        // POST: api/user/reg
 
         [HttpPost]
         [Route("reg")]
@@ -154,16 +168,23 @@ namespace IQGROUP_test_task.Controllers
                 }
             }
         }
-        //POST: api/users/rmv/{id
+        // Удалить пользователя по его id
+        //POST: api/user/rmv/{id
 
-        [HttpPost]
-        [Route("rmv/{id}")]
+        [HttpDelete]
+        [Route("{id}")]
         public async Task<IActionResult> RemoveAsync(string id)
         {
+            if (string.IsNullOrEmpty(id))
+            {
+                // log
+                return BadRequest();
+            }
             try
             {
                 // log
-                _logger.LogInformation("Get method is success!");
+                await _userService.DeleteAsync(id);
+                _logger.LogInformation($"Delete method is success {id}!");
                 return Ok();
             }
             catch
@@ -172,7 +193,8 @@ namespace IQGROUP_test_task.Controllers
                 return Ok();
             }
         }
-        //POST: api/users/upd
+        // Обновить данные пользователя
+        //POST: api/user/upd
 
        [HttpPost]
        [Route("upd")]
@@ -190,6 +212,8 @@ namespace IQGROUP_test_task.Controllers
                 return Ok();
             }
         }
+        // Проверка почты на уникальность
+        //POST: api/user/check-email
 
         [HttpPost]
         [Route("check-email")]
@@ -212,6 +236,8 @@ namespace IQGROUP_test_task.Controllers
                 return Ok(ex.Message);
             }
         }
+        // Проверка логина на уникальность
+        //POST: api/user/check-login
 
         [HttpPost]
         [Route("check-login")]

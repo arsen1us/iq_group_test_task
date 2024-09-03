@@ -2,14 +2,14 @@
 @using System.ComponentModel.DataAnnotations;
 @inject HttpClient _http;
 @inject IJSRuntime _jsRuntime;
-@inject IHttpContextAccessor HttpContextAccessor
+@* @inject IQGROUP_test_task.Models.IAuthorizationService authService; *@
+@inject AuthenticationStateProvider _authProvider;
 
 <button @onclick="ShowPopUp">Войти</button>
 <Popup IsVisible="@popupIsVisible" OnClose="@HandlePopupClose">
     <h3>С возвращением!</h3>
 
     <EditForm Model="@authUser" OnValidSubmit="@HandleAuthAsync">
-        <DataAnnotationsValidator />
         <DataAnnotationsValidator />
         <div class="form-group">
             <label for="email">Почта</label>
@@ -58,10 +58,10 @@
             }
             else
             {
-                HttpContextAccessor.HttpContext.Items.TryGetValue("Authorization", out var values);
-                string token = values.ToString();
+                var content = await response.Content.ReadFromJsonAsync<AuthResponseModel>();
+                var token = content.JwtToken;
                 await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "jwt-token", token);
-                // log
+                await _authProvider.GetAuthenticationStateAsync();
                 HandlePopupClose(false);
             }
         }
