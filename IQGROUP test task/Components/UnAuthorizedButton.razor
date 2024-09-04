@@ -1,9 +1,0 @@
-﻿@inject AuthenticationStateProvider _authProvider;
-<button @onclick="UnAuthorize">X</button>
-@code {
-    public async Task UnAuthorize()
-    {
-        if(_authProvider is JwtAuthenticationStateProvider jwtAuthProvider)
-            await jwtAuthProvider.LogoutAsync();
-    }
-}

@@ -1,8 +1,9 @@
-﻿@using System.ComponentModel.DataAnnotations;
-@inject HttpClient _httpClient;
+﻿@inject HttpClient _httpClient;
 @inject IJSRuntime _jsRuntime
+@inject ILogger<Program> _logger;
+@inject IDateTimeService _dateTimeService;
 
-<button @onclick="ShowPopUp">Добавить</button>
+<button @onclick="ShowPopUp">Добавить нового пользователя</button>
 <Popup IsVisible="@popupIsVisible" OnClose="@HandlePopupClose">
     <h3>Добавить нового пользователя</h3>
 
@@ -14,7 +15,7 @@
             <InputText id="login"
                        class="form-control"
                        @bind-Value="regUser.Login"
-                       placeholder="Придумайте логин"
+                       placeholder="Логин"
                        @onblur="CheckLoginAvailability" />
             <ValidationMessage For="@(() => regUser.Login)" />
             @loginAvailability
@@ -25,7 +26,7 @@
             <InputText id="email"
                        class="form-control"
                        @bind-Value="regUser.Email"
-                       placeholder="Введите свою почту"
+                       placeholder="Почта"
                        @onblur="CheckEmailAvailability" />
             <ValidationMessage For="@(() => regUser.Email)" />
             <p>@emailAvailability</p>
@@ -36,7 +37,7 @@
             <InputText id="password"
                        class="form-control"
                        @bind-Value="regUser.Password"
-                       placeholder="Придумайте себе пароль"
+                       placeholder="Пароль"
                        type="@passwordInputType" />
             <button type="button" @onclick="TogglePasswordVisible">
                 <img src="@visiblePassImgSrc" width="25" height="25" />
@@ -49,7 +50,7 @@
             <InputText id="confirmPassword"
                        class="form-control"
                        @bind-Value="regUser.ConfirmPassword"
-                       placeholder="Введите пароль ещё раз"
+                       placeholder="Повторите пароль"
                        type="@confirmPasswordInputType" />
             <button type="button" @onclick="ToggleConfirmPasswordVisible">
                 <img src="@visibleConfirmPassImgSrc" width="25" height="25" />
@@ -57,12 +58,16 @@
             <ValidationMessage For="@(() => regUser.ConfirmPassword)" />
         </div>
 
-        <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+        <button type="submit" class="btn btn-primary">Добавить</button>
     </EditForm>
 </Popup>
 
 
 @code {
+    // Для обновления списка при успешном добавлении пользователя
+    [Parameter]
+    public EventCallback OnUserSuccessfullyAdded{ get; set; }
+
     private RegUserModel regUser = new RegUserModel();
 
     private bool popupIsVisible = false;
@@ -73,87 +78,92 @@
 
     private bool isPasswordVisible = false;
     private string passwordInputType => isPasswordVisible ? "text" : "password";
-    private string visiblePassImgSrc => isPasswordVisible ? "/visible.png" : "/hide.png";
+    private string visiblePassImgSrc => isPasswordVisible ? "/visible_white.png" : "/hide_white.png";
     // Показать/скрыть видимость подтверждения пароля
 
     private bool isConfirmPasswordVisible = false;
     private string confirmPasswordInputType => isConfirmPasswordVisible ? "text" : "password";
-    private string visibleConfirmPassImgSrc => isConfirmPasswordVisible ? "/visible.png" : "/hide.png";
+    private string visibleConfirmPassImgSrc => isConfirmPasswordVisible ? "/visible_white.png" : "/hide_white.png";
     // Отправить запрос на рагистрацию
 
     private async Task HandleRegisterAsync()
     {
-        var response = await _httpClient.PostAsJsonAsync("api/user/reg", regUser);
-
-        if (response.IsSuccessStatusCode)
+        string timestamp = _dateTimeService.GetDateTimeNow();
+        try
         {
-            string data = await response.Content.ReadAsStringAsync();
-            if (data != null)
+            var response = await _httpClient.PostAsJsonAsync("api/user/reg", regUser);
+
+            if (response.IsSuccessStatusCode)
             {
-                // log
-                response.Headers.TryGetValues("Authorization", out var values);
-                string token = values.ToString();
-                await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "jwt-token", token);
-                HandlePopupClose(false);
-            }
-            else
-            {
-                // log
+                var content = await response.Content.ReadFromJsonAsync<AuthResponseModel>();
+                if (content != null)
+                {
+                    // log
+                    HandlePopupClose(false);
+
+                    // Уведомление для обновления списка
+                    await OnUserSuccessfullyAdded.InvokeAsync(null);
+                    _logger.LogInformation($"INFO: [{timestamp}] New user successfully added to database. New user id - [{content.UserId}]");
+                }
             }
         }
-        else
+        catch (Exception ex)
         {
-            // log failed request
+            _logger.LogError($"ERROR: [{timestamp}] Unexpected - {ex.Message}");
+            throw new Exception($" Unexpected exception. Details {ex.Message}");
         }
     }
     // Проверка логина на уникальность
 
     private async Task CheckLoginAvailability()
     {
+        string timestamp = _dateTimeService.GetDateTimeNow();
         bool isAvailable;
-        var response = await _httpClient.PostAsJsonAsync("api/user/check-login", regUser.Login);
-        if (response.IsSuccessStatusCode)
+
+        try
         {
-            var content = await response.Content.ReadAsStringAsync();
-            if (content is null)
+            var response = await _httpClient.PostAsJsonAsync("api/user/check-login", regUser.Login);
+            if (response.IsSuccessStatusCode)
             {
-                // log
-            }
-            else
-            {
-                // log
-                bool.TryParse(content, out isAvailable);
-                loginAvailability = isAvailable == true ? "Логин доступен" : "Логин занят";
+                var content = await response.Content.ReadAsStringAsync();
+                if (content != null)
+                {
+                    bool.TryParse(content, out isAvailable);
+                    loginAvailability = isAvailable == true ? "Логин доступен" : "Логин занят";
+                    _logger.LogInformation($"INFO: [{timestamp}] Login checking completed successfully. Login - [{regUser.Login}]");
+                }
             }
         }
-        else
+        catch(Exception ex)
         {
-            // log
+            _logger.LogError($"ERROR: [{timestamp}] Unexpected - {ex.Message}");
+            throw new Exception($" Unexpected exception. Details {ex.Message}");
         }
     }
     // Проверка почты на уникальность
 
     private async Task CheckEmailAvailability()
     {
+        string timestamp = _dateTimeService.GetDateTimeNow();
         bool isAvailable;
-        var response = await _httpClient.PostAsJsonAsync("api/user/check-email", regUser.Email);
-        if (response.IsSuccessStatusCode)
+        try
         {
-            var content = await response.Content.ReadAsStringAsync();
-            if (content is null)
+            var response = await _httpClient.PostAsJsonAsync("api/user/check-email", regUser.Email);
+            if (response.IsSuccessStatusCode)
             {
-                // log
-            }
-            else
-            {
-                // log
-                bool.TryParse(content, out isAvailable);
-                emailAvailability = isAvailable == true ? "Почта доступна" : "Почта занята";
+                var content = await response.Content.ReadAsStringAsync();
+                if (content is null)
+                {
+                    bool.TryParse(content, out isAvailable);
+                    emailAvailability = isAvailable == true ? "Почта доступна" : "Почта занята";
+                    _logger.LogInformation($"INFO: [{timestamp}] Email checking completed successfully. Email - [{regUser.Email}]");
+                }
             }
         }
-        else
+        catch (Exception ex)
         {
-            // log
+            _logger.LogError($"ERROR: [{timestamp}] Unexpected - {ex.Message}");
+            throw new Exception($" Unexpected exception. Details {ex.Message}");
         }
     }
     // Открыть попап

@@ -5,17 +5,20 @@ using System.Text.Json;
 using System.Net.Http.Headers;
 using IQGROUP_test_task;
 using System.Net.Http;
+using Microsoft.AspNetCore.Components;
 
 namespace IQGROUP_test_task
 {
     public class JwtAuthenticationStateProvider : AuthenticationStateProvider
     {
+        NavigationManager _navigationManager;
         HttpClient _httpClient;
         ILocalStorageService _localStorage;
-        public JwtAuthenticationStateProvider(HttpClient httpClient, ILocalStorageService localStorage)
+        public JwtAuthenticationStateProvider(HttpClient httpClient, ILocalStorageService localStorage, NavigationManager navigationManager)
         {
             _httpClient = httpClient;
             _localStorage = localStorage;
+            _navigationManager = navigationManager;
         }
         // Войти в систему
 
@@ -54,6 +57,7 @@ namespace IQGROUP_test_task
                 return new AuthenticationState(user);
             }
         }
+
         // Получение claims из payload jwt-токена
 
         public static IEnumerable<Claim> ParseClaimsFromJwt(string jwt)

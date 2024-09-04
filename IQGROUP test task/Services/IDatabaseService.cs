@@ -1,4 +1,4 @@
-﻿namespace IQGROUP_test_task.Models
+﻿namespace IQGROUP_test_task.Services
 {
     public interface IDatabaseService<T> where T : class
     {

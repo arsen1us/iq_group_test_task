@@ -1,13 +1,19 @@
-﻿@using System.Net.Http
-@using Microsoft.AspNetCore.Authorization
+﻿@using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Components.Forms
 @using Microsoft.AspNetCore.Components.Routing
 @using Microsoft.AspNetCore.Components.Web
 @using Microsoft.AspNetCore.Components.Web.Virtualization
+@using Microsoft.AspNetCore.SignalR.Client;
+
 @using Microsoft.JSInterop
+
 @using IQGROUP_test_task
 @using IQGROUP_test_task.Shared
 @using IQGROUP_test_task.Models;
-@using IQGROUP_test_task.Components;
+@using IQGROUP_test_task.Services;
 
+@using System.ComponentModel.DataAnnotations;
+@using System.Net.Http
+@using System.Net;
+@using System.Text.Json;

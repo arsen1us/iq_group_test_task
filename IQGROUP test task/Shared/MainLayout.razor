@@ -1,6 +1,7 @@
-﻿@inherits LayoutComponentBase
+﻿@using IQGROUP_test_task.Pages
+@inherits LayoutComponentBase
 
-<PageTitle>IQGROUP test task</PageTitle>
+<PageTitle>Test task IQGROUP</PageTitle>
 
 <div class="page">
     <div class="sidebar">
@@ -9,7 +10,28 @@
 
     <main>
         <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+
+            <AuthorizeView>
+                <Authorized>
+                    <NavLink class="dark-button" href="/switch">
+                        Изменить тему
+                    </NavLink>
+                    <NavLink class="dark-button" href="/menu">
+                        Меню взаимодействия с пользователями
+                    </NavLink>
+                    <div class="button-container">
+                        <NavLink class="btn btn-primary" href="/profile">
+                            Профиль
+                        </NavLink>
+                    </div>
+                </Authorized>
+                <NotAuthorized>
+                    <div class="button-container">
+                        <RegistrationForm />
+                        <AuthenticationForm />
+                    </div>
+                </NotAuthorized>
+            </AuthorizeView>
         </div>
 
         <article class="content px-4">

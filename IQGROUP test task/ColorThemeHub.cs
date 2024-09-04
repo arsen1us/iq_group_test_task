@@ -1,49 +1,42 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using IQGROUP_test_task.Services;
+using Microsoft.AspNetCore.SignalR;
 using System.Text.Json;
 
 namespace IQGROUP_test_task
 {
     public class ColorThemeHub : Hub
     {
-        public List<string> UsersList { get; set; }
+        public List<string> ConnectedUsersList { get; set; }
+        ILogger<ColorThemeHub> _logger;
+        IDateTimeService _dateTimeService;
 
-        public ColorThemeHub()
+        public ColorThemeHub(ILogger<ColorThemeHub> logger, IDateTimeService dateTimeService)
         {
-            UsersList = new List<string>();
+            ConnectedUsersList = new List<string>();
+            _logger = logger;
+            _dateTimeService = dateTimeService;
         }
 
-        public async Task Send(string message, string id)
+        public async Task SwitchColorTheme(string theme, string id)
         {
-            UsersList.Add(id);
+            string timestamp = _dateTimeService.GetDateTimeNow();
 
-            await this.Clients.Caller.SendAsync("Receive", message, id);
-            await this.Clients.Others.SendAsync("Receive1", $"{id} change color theme", "");
+            try
+            {
+                string swTheme = theme == "white" ? "dark" : "white";
+                // Изменить тему у того, кто обратился к хабу
 
-            string usersList = JsonSerializer.Serialize(UsersList);
-            await this.Clients.All.SendAsync("UsersList", usersList);
-        }
+                _logger.LogInformation($"[{timestamp}] User with id - [{id}] successfully switch theme to [{swTheme}]");
+                await this.Clients.Caller.SendAsync("SwitchTheme", swTheme);
+                // Отправить уведомление всем остальным, кто подключён к хабу
 
-        public override async Task OnConnectedAsync()
-        {
-            //var context = Context.GetHttpContext();
-            //byte[] buffer = new byte[1024];
-            //var contextBody = context.Request.Body.ReadAsync(buffer);
-            //if(contextBody)
-            await this.Clients.Others.SendAsync("OnConnection", "new user is connected");
-
-            await base.OnConnectedAsync();
-        }
-
-        public override async Task OnDisconnectedAsync(Exception? exception)
-        {
-            await this.Clients.Others.SendAsync("OnDisconnection", "user id disconnected");
-            await base.OnDisconnectedAsync(exception);
-        }
-
-        public async Task GetConnectedUsers()
-        {
-            string usersList = JsonSerializer.Serialize(UsersList);
-            await this.Clients.All.SendAsync("UsersList", UsersList);
+                _logger.LogInformation($"[{timestamp}] Successfully sended notification to connected users to SignalR hub");
+                await this.Clients.Others.SendAsync("NotificateOthers", $"Пользователь с id [{id}] сменил тему на {swTheme}");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"[{timestamp}] Internal SignalR hub error. Details: {ex.Message}");
+            }
         }
     }
 }

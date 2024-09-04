@@ -1,6 +1,8 @@
-﻿@using System.ComponentModel.DataAnnotations;
-@inject HttpClient _httpClient;
+﻿@inject HttpClient _httpClient;
 @inject IJSRuntime _jsRuntime
+@inject AuthenticationStateProvider _authStateProvider;
+@inject ILogger<Program> _logger;
+@inject IDateTimeService _dateTimeService;
 
 <button @onclick="ShowPopUp">Регистрация</button>
 <Popup IsVisible="@popupIsVisible" OnClose="@HandlePopupClose">
@@ -73,87 +75,113 @@
 
     private bool isPasswordVisible = false;
     private string passwordInputType => isPasswordVisible ? "text" : "password";
-    private string visiblePassImgSrc => isPasswordVisible ? "/visible.png" : "/hide.png";
+    private string visiblePassImgSrc => isPasswordVisible ? "/visible_white.png" : "/hide_white.png";
     // Показать/скрыть видимость подтверждения пароля
 
     private bool isConfirmPasswordVisible = false;
     private string confirmPasswordInputType => isConfirmPasswordVisible ? "text" : "password";
-    private string visibleConfirmPassImgSrc => isConfirmPasswordVisible ? "/visible.png" : "/hide.png";
+    private string visibleConfirmPassImgSrc => isConfirmPasswordVisible ? "/visible_white.png" : "/hide_white.png";
     // Отправить запрос на рагистрацию
+
+    protected override async Task OnInitializedAsync()
+    {
+
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await _authStateProvider.GetAuthenticationStateAsync();
+        }
+    }
 
     private async Task HandleRegisterAsync()
     {
-        var response = await _httpClient.PostAsJsonAsync("api/user/reg", regUser);
+        string timestamp = _dateTimeService.GetDateTimeNow();
 
-        if(response.IsSuccessStatusCode)
+        if (loginAvailability == "Логин доступен" && emailAvailability == "Почта доступна")
         {
-            string data = await response.Content.ReadAsStringAsync();
-            if(data != null)
+            try
             {
-                // log
-                response.Headers.TryGetValues("Authorization", out var values);
-                string token = values.ToString();
-                await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "jwt-token", token);
-                HandlePopupClose(false);
+                var response = await _httpClient.PostAsJsonAsync("api/user/reg", regUser);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    if (response.Content != null)
+                    {
+                        var content = await response.Content.ReadFromJsonAsync<AuthResponseModel>();
+                        var token = content.JwtToken;
+                        await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "jwt-token", token);
+
+                        if (_authStateProvider is JwtAuthenticationStateProvider _jwtAuthProvider)
+                        {
+                            await _jwtAuthProvider.GetAuthenticationStateAsync();
+                        }
+                        HandlePopupClose(false);
+                        _logger.LogInformation($"INFO: [{timestamp}] User successfully registered. User id - [{content.UserId}]");
+                    }
+                }
             }
-            else
+            catch (Exception ex)
             {
-                // log
+                _logger.LogError($"ERROR: [{timestamp}] Unexpected - {ex.Message}");
+                throw new Exception($" Unexpected exception. Details {ex.Message}");
             }
-        }
-        else
-        {
-            // log failed request
         }
     }
     // Проверка логина на уникальность
 
     private async Task CheckLoginAvailability()
     {
+        string timestamp = _dateTimeService.GetDateTimeNow();
         bool isAvailable;
-        var response = await _httpClient.PostAsJsonAsync("api/user/check-login", regUser.Login);
-        if (response.IsSuccessStatusCode)
+        try
         {
-            var content = await response.Content.ReadAsStringAsync();
-            if(content is null)
+            var response = await _httpClient.PostAsJsonAsync("api/user/check-login", regUser.Login);
+            if (response.IsSuccessStatusCode)
             {
-                // log
-            }
-            else
-            {
-                // log
-                bool.TryParse(content, out isAvailable);
-                loginAvailability = isAvailable == true ? "Логин доступен" : "Логин занят";
+                var content = await response.Content.ReadAsStringAsync();
+                if (content != null)
+                {
+                    // log
+                    bool.TryParse(content, out isAvailable);
+                    loginAvailability = isAvailable == true ? "Логин доступен" : "Логин занят";
+                    _logger.LogInformation($"INFO: [{timestamp}] Login checking completed successfully. Login - [{regUser.Login}]");
+                }
             }
         }
-        else
+        catch (Exception ex)
         {
-            // log
+            _logger.LogError($"ERROR: [{timestamp}] Unexpected - {ex.Message}");
+            throw new Exception($" Unexpected exception. Details {ex.Message}");
         }
     }
     // Проверка почты на уникальность
 
     private async Task CheckEmailAvailability()
     {
+        string timestamp = _dateTimeService.GetDateTimeNow();
         bool isAvailable;
-        var response = await _httpClient.PostAsJsonAsync("api/user/check-email", regUser.Email);
-        if (response.IsSuccessStatusCode)
+        try
         {
-            var content = await response.Content.ReadAsStringAsync();
-            if (content is null)
+            var response = await _httpClient.PostAsJsonAsync("api/user/check-email", regUser.Email);
+            if (response.IsSuccessStatusCode)
             {
-                // log
-            }
-            else
-            {
-                // log
-                bool.TryParse(content, out isAvailable);
-                emailAvailability = isAvailable == true ? "Почта доступна" : "Почта занята";
+                var content = await response.Content.ReadAsStringAsync();
+                if (content != null)
+                {
+                    // log
+                    bool.TryParse(content, out isAvailable);
+                    emailAvailability = isAvailable == true ? "Почта доступна" : "Почта занята";
+                    _logger.LogInformation($"INFO: [{timestamp}] Email checking completed successfully. Email - [{regUser.Email}]");
+                }
             }
         }
-        else
+        catch (Exception ex)
         {
-            // log
+            _logger.LogError($"ERROR: [{timestamp}] Unexpected - {ex.Message}");
+            throw new Exception($" Unexpected exception. Details {ex.Message}");
         }
     }
     // Открыть попап

@@ -1,9 +1,10 @@
-﻿@using IQGROUP_test_task.Models;
-@using System.ComponentModel.DataAnnotations;
-@inject HttpClient _http;
+﻿@inject HttpClient _http;
 @inject IJSRuntime _jsRuntime;
-@* @inject IQGROUP_test_task.Models.IAuthorizationService authService; *@
-@inject AuthenticationStateProvider _authProvider;
+@inject AuthenticationStateProvider _authStateProvider;
+@inject ILogger<Program> _logger;
+@inject IDateTimeService _dateTimeService;
+
+@attribute [Authorize]
 
 <button @onclick="ShowPopUp">Войти</button>
 <Popup IsVisible="@popupIsVisible" OnClose="@HandlePopupClose">
@@ -44,7 +45,7 @@
 
     private bool isPasswordVisible = false;
     private string passwordInputType => isPasswordVisible ? "text" : "password";
-    private string visiblePassImgSrc => isPasswordVisible ? "/visible.png" : "/hide.png";
+    private string visiblePassImgSrc => isPasswordVisible ? "/visible_white.png" : "/hide_white.png";
     // Отправить запрос на аутентификацию
 
     protected override async Task OnInitializedAsync()
@@ -52,32 +53,43 @@
 
     }
 
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await _authStateProvider.GetAuthenticationStateAsync();
+        }
+    }
+
     private async Task HandleAuthAsync()
     {
-        var response = await _http.PostAsJsonAsync("api/user/auth", authUser);
-        if(response.IsSuccessStatusCode)
-        {
-            if(response.Content is null)
-            {
-                // log
-            }
-            else
-            {
-                var content = await response.Content.ReadFromJsonAsync<AuthResponseModel>();
-                var token = content.JwtToken;
-                await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "jwt-token", token);
+        string timestamp = _dateTimeService.GetDateTimeNow();
 
-                if(_authProvider is JwtAuthenticationStateProvider _jwtAuthProvider)
+        try
+        {
+            var response = await _http.PostAsJsonAsync("api/user/auth", authUser);
+            if (response.IsSuccessStatusCode)
+            {
+                if (response.Content != null)
                 {
-                    await _jwtAuthProvider.GetAuthenticationStateAsync();
+                    var content = await response.Content.ReadFromJsonAsync<AuthResponseModel>();
+                    var token = content.JwtToken;
+                    await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "jwt-token", token);
+
+                    if (_authStateProvider is JwtAuthenticationStateProvider _jwtAuthProvider)
+                    {
+                        await _jwtAuthProvider.GetAuthenticationStateAsync();
+                    }
+
+                    _logger.LogInformation($"INFO: [{timestamp}] User successfully authenticated. User id - [{content.UserId}]");
+                    HandlePopupClose(false);
                 }
-                
-                HandlePopupClose(false);
             }
         }
-        else
+        catch (Exception ex)
         {
-            // log
+            _logger.LogError($"ERROR: [{timestamp}] Unexpected - {ex.Message}");
+            throw new Exception($" Unexpected exception. Details {ex.Message}");
         }
     }
     // Скрыть/открыть пароль
@@ -86,11 +98,13 @@
     {
         isPasswordVisible = !isPasswordVisible;
     }
+    // Открыть попап
 
     private void ShowPopUp()
     {
         popupIsVisible = true;
     }
+    // Закрыть попап
 
     private void HandlePopupClose(bool isVisible)
     {

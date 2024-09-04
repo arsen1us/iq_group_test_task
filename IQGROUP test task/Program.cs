@@ -1,6 +1,5 @@
 using IQGROUP_test_task;
 using IQGROUP_test_task.Data;
-using IQGROUP_test_task.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -10,6 +9,7 @@ using System.Text;
 using IQGROUP_test_task.Middleware;
 using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Authorization;
+using IQGROUP_test_task.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,9 +53,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSettings:Key"]))
     };
 });
-builder.Services.AddAuthorizationCore();
-
-
 
 builder.Services.AddSignalR();
 // Подключение к БД
@@ -76,6 +73,7 @@ builder.Services.AddSingleton<IMongoClient, MongoClient>(options =>
 
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<ITokenService, TokenService>();
+builder.Services.AddTransient<IDateTimeService, DateTimeService>();
 
 // Получить header авторизации в компоненте Blazor
 //builder.Services.AddSingleton<IAuthorizationService, AuthorizationService>();
@@ -85,6 +83,8 @@ builder.Services.AddLogging();
 builder.Services.AddBlazoredLocalStorage();
 
 builder.Services.AddScoped<AuthenticationStateProvider, JwtAuthenticationStateProvider>();
+
+builder.Services.AddAuthorizationCore();
 
 var app = builder.Build();
 
@@ -116,6 +116,9 @@ app.MapHub<ColorThemeHub>("/color-theme-hub");
 //app.UseCors("local");
 
 app.MapControllers();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 //app.UseMiddleware<AuthorizeHeadersMiddleware>();
 

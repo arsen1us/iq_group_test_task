@@ -1,0 +1,399 @@
+﻿@page "/menu"
+
+@inject HttpClient _httpClient
+@inject AuthenticationStateProvider _authStateProvider;
+@inject IJSRuntime _jsRuntime;
+@inject ILogger<Program> _logger;
+@inject IDateTimeService _dateTimeService;
+
+@attribute [Authorize]
+
+<AuthorizeView>
+    <Authorized>
+        <div>
+            <div>
+                <h3>
+                    Меню взаимодействия с пользователями
+                </h3>
+            </div>
+            <div>
+                <AddNewUserComponent OnUserSuccessfullyAdded="GetUsersListAsync"/>
+                <input type="text"
+                       @bind="searchInput"
+                       @oninput="SearchUserByLogin"
+                       placeholder="Поиск по логину"/>
+            </div>
+            <div>
+                <div>Users list</div>
+                <div>
+                    <table class="users-table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    _id
+                                </th>
+                                <th>
+                                    Login
+                                </th>
+                                <th>
+                                    Email
+                                </th>
+                                <th>
+                                    Password
+                                </th>
+                                <th>
+                                    Actions
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var user in usersList)
+                            {
+                                if (currentUserId != user._id)
+                                {
+                                    <tr>
+                                        <td>
+                                            @user._id
+                                        </td>
+                                        <td>
+                                            @user.Login
+                                        </td>
+                                        <td>
+                                            @user.Email
+                                        </td>
+                                        <td>
+                                            @user.Password
+                                        </td>
+
+                                        <td>
+                                            <div class="button-container">
+                                                <button @onclick="() => HandleUpdateMenu(user._id)">
+                                                    <img src="/pencil_white.png" width="25" height="25"/>
+                                                </button>
+                                                <button @onclick="() => DeleteUserAsync(user._id)">
+                                                    <img src="/trash_box_white.png" width="25" height="25" />
+                                                </button>
+                                            </div>
+                                            
+                                        </td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td>
+                                            @user._id
+                                        </td>
+                                        <div>
+                                            <EditForm Model="@updateUser" Context="form">
+                                                <DataAnnotationsValidator/>
+                                                <InputText id="login"
+                                                           class="form-control"
+                                                           @bind-Value="updateUser.Login"
+                                                           @onblur="CheckLoginAvailability"
+                                                           placeholder="@user.Login" />
+                                                <ValidationMessage For="@(() => updateUser.Login)" />
+                                                @loginAvailability
+
+                                                <InputText id="email"
+                                                           class="form-control"
+                                                           @bind-Value="updateUser.Email"
+                                                           @onblur="CheckEmailAvailability"
+                                                           placeholder="@user.Email" />
+                                                <ValidationMessage For="@(() => updateUser.Email)" />
+                                                @emailAvailability
+
+                                                <InputText id="password"
+                                                           class="form-control"
+                                                           @bind-Value="updateUser.Password"
+                                                           placeholder="@user.Password"
+                                                           type="@passwordInputType" />
+                                                <button type="button" @onclick="TogglePasswordVisible">
+                                                    <img src="@visiblePassImgSrc" width="25" height="25" />
+                                                </button>
+                                                <ValidationMessage For="@(() => updateUser.Password)" />
+                                                
+                                            </EditForm>
+                                        </div>
+                                    </tr>
+                                    <div class="button-container">
+                                        <button @onclick="() => UpdateUserAsync(user._id)">
+                                            Сохранить изменения
+                                        </button>
+                                        <button @onclick="() => HandleUpdateMenu(user._id)">
+                                            Отменить изменения
+                                        </button>
+                                    </div>
+                                }
+
+
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </Authorized>
+</AuthorizeView>
+<AuthorizeView>
+    <NotAuthorized>
+        <div>
+            <h3>Войдите, чтобы открыть меню управления пользователями</h3>
+        </div>
+    </NotAuthorized>
+</AuthorizeView>    
+@* </CascadingAuthenticationState> *@
+@code{
+    private UserModel updateUser = new UserModel();
+
+    private string loginAvailability = "";
+    private string emailAvailability = "";
+
+    private bool isPasswordVisible = false;
+    private string passwordInputType => isPasswordVisible ? "text" : "password";
+    private string visiblePassImgSrc => isPasswordVisible ? "/visible_white.png" : "/hide_white.png";
+
+    private List<UserModel> usersList = new List<UserModel>();
+
+    private string currentUserId = "";
+
+    private string searchInput { get; set; } = "";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if(firstRender)
+        {
+            await _authStateProvider.GetAuthenticationStateAsync();
+        }
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetUsersListAsync();
+    }
+    // Получение списка пользователей
+
+    private async Task GetUsersListAsync()
+    {
+        string timestamp = _dateTimeService.GetDateTimeNow();
+
+        try
+        {
+            var response = await _httpClient.GetAsync("api/user");
+            if (response.IsSuccessStatusCode)
+            {
+                var users = await response.Content.ReadFromJsonAsync<List<UserModel>>();
+                usersList = users;
+                await InvokeAsync(StateHasChanged);
+                _logger.LogInformation($"INFO: [{timestamp}] User list successfully received. Received users count - [{users.Count}]");
+            }
+            else if (response.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                var updateTokenResponse = await _httpClient.GetAsync($"api/token/refresh-token");
+                string newToken = await updateTokenResponse.Content.ReadAsStringAsync();
+                await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "jwt-token", newToken);
+                _logger.LogInformation($"INFO: [{timestamp}] Jwt-token successfully updated");
+            }
+        }
+        catch(Exception ex)
+        {
+            _logger.LogError($"ERROR: [{timestamp}] Unexpected - {ex.Message}");
+            throw new Exception($" Unexpected exception. Details {ex.Message}");
+        }
+    }
+    // Управление меню для изменения
+
+    private void HandleUpdateMenu(string id)
+    {
+        if (currentUserId != id)
+        {
+            currentUserId = id;
+        }
+        else
+        {
+            currentUserId = string.Empty;
+        }
+    }
+    // Измененить пользователя
+
+    private async Task UpdateUserAsync(string id)
+    {
+        string timestamp = _dateTimeService.GetDateTimeNow();
+
+        try
+        {
+            if (updateUser != null && !string.IsNullOrEmpty(id))
+            {
+                if (loginAvailability == "Логин доступен" && emailAvailability == "Почта доступна")
+                {
+                    updateUser._id = id;
+                    var response = await _httpClient.PostAsJsonAsync($"api/user/{id}", updateUser);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        //StateHasChanged();
+                        await GetUsersListAsync();
+                        HandleUpdateMenu(id);
+                        _logger.LogInformation($"INFO: [{timestamp}] User data update completed successfully. User id - [{id}]");
+                    }
+                    else if (response.StatusCode == HttpStatusCode.Unauthorized)
+                    {
+                        var updateTokenResponse = await _httpClient.GetAsync($"api/token/refresh-token");
+                        string newToken = await updateTokenResponse.Content.ReadAsStringAsync();
+                        await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "jwt-token", newToken);
+                        _logger.LogInformation($"INFO: [{timestamp}] Jwt-token successfully updated");
+                    }
+                }
+
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"ERROR: [{timestamp}] Unexpected - {ex.Message}");
+            throw new Exception($" Unexpected exception. Details {ex.Message}");
+        }
+    }
+
+    // Удаление пользователя
+
+    private async Task DeleteUserAsync(string id)
+    {
+        string timestamp = _dateTimeService.GetDateTimeNow();
+
+        if (!string.IsNullOrEmpty(id))
+        {
+            try
+            {
+                var response = await _httpClient.DeleteAsync($"api/user/{id}");
+                if(response.IsSuccessStatusCode)
+                {
+                    // log
+                    await GetUsersListAsync();
+                }
+                else
+                {
+                    // log
+                    usersList = new List<UserModel>();
+                }
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError($"ERROR: [{timestamp}] Unexpected - {ex.Message}");
+                throw new Exception($" Unexpected exception. Details {ex.Message}");
+            }
+        }
+    }
+
+    // Проверка логина на уникальность
+
+    private async Task CheckLoginAvailability()
+    {
+        string timestamp = _dateTimeService.GetDateTimeNow();
+        bool isAvailable;
+
+        try
+        {
+            var response = await _httpClient.PostAsJsonAsync("api/user/check-login", updateUser.Login);
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                if (content != null)
+                {
+                    bool.TryParse(content, out isAvailable);
+                    loginAvailability = isAvailable == true ? "Логин доступен" : "Логин занят";
+                    _logger.LogInformation($"INFO: [{timestamp}] Login verification completed successfully. Login - [{updateUser.Login}]");
+                }
+            }
+            else if (response.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                var updateTokenResponse = await _httpClient.GetAsync($"api/token/refresh-token");
+                string newToken = await updateTokenResponse.Content.ReadAsStringAsync();
+                await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "jwt-token", newToken);
+                _logger.LogInformation($"INFO: [{timestamp}] Jwt-token successfully updated");
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"ERROR: [{timestamp}] Unexpected - {ex.Message}");
+            throw new Exception($" Unexpected exception. Details {ex.Message}");
+        }
+    }
+    // Проверка почты на уникальность
+
+    private async Task CheckEmailAvailability()
+    {
+        string timestamp = _dateTimeService.GetDateTimeNow();
+        bool isAvailable;
+
+        try
+        {
+            var response = await _httpClient.PostAsJsonAsync("api/user/check-email", updateUser.Email);
+            if (response.IsSuccessStatusCode)
+            {
+                var content = await response.Content.ReadAsStringAsync();
+                if (content != null)
+                {
+                    bool.TryParse(content, out isAvailable);
+                    emailAvailability = isAvailable == true ? "Почта доступна" : "Почта занята";
+                    _logger.LogInformation($"INFO: [{timestamp}] Email verification completed successfully. Email - [{updateUser.Email}]");
+                }
+            }
+            else if (response.StatusCode == HttpStatusCode.Unauthorized)
+            {
+                var updateTokenResponse = await _httpClient.GetAsync($"api/token/refresh-token");
+                string newToken = await updateTokenResponse.Content.ReadAsStringAsync();
+                await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "jwt-token", newToken);
+                _logger.LogInformation($"INFO: [{timestamp}] Jwt-token successfully updated");
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"ERROR: [{timestamp}] Unexpected - {ex.Message}");
+            throw new Exception($" Unexpected exception. Details {ex.Message}");
+        }
+    }
+    // Скрыть/открыть пароль
+
+    private async Task TogglePasswordVisible()
+    {
+        isPasswordVisible = !isPasswordVisible;
+    }
+
+    private async Task AddNewUserAsync()
+    {
+
+    }
+    // Поиск пользователей по логину
+
+    private async Task SearchUserByLogin(ChangeEventArgs e)
+    {
+        string timestamp = _dateTimeService.GetDateTimeNow();
+        searchInput = e.Value.ToString();
+
+        if (!string.IsNullOrEmpty(searchInput))
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync($"api/user/get/{searchInput}");
+                if (response.IsSuccessStatusCode)
+                {
+                    var users = await response.Content.ReadFromJsonAsync<List<UserModel>>();
+                    usersList = users;
+                    StateHasChanged();
+                    _logger.LogInformation($"INFO: [{timestamp}] Login search completed successfully. Login - [{searchInput}]");
+                }
+                else if(response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    var updateTokenResponse = await _httpClient.GetAsync($"api/token/refresh-token");
+                    string newToken = await updateTokenResponse.Content.ReadAsStringAsync();
+                    await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "jwt-token", newToken);
+                    _logger.LogInformation($"INFO: [{timestamp}] Jwt-token successfully updated");
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"ERROR: [{timestamp}] Unexpected - {ex.Message}");
+                throw new Exception($" Unexpected exception. Details {ex.Message}");
+            }
+        }
+    }
+}

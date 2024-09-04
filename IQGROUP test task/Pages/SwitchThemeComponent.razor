@@ -1,0 +1,128 @@
+﻿@page "/switch"
+
+@inject AuthenticationStateProvider _authStateProvider;
+@inject NavigationManager Navigation;
+@inject ILogger<Program> _logger;
+@inject IDateTimeService _dateTimeService;
+
+@attribute [Authorize]
+
+<AuthorizeView>
+    <Authorized>
+        <button @onclick="SwitchTheme" class="@colorTheme">
+            Theme
+            <img src="@iconTheme" width="25" height="25" />
+        </button>        
+        <h3>Уведомления о смене темы других пользователей</h3>
+        <ul>
+            @foreach (var notify in signalRNotifications)
+            {
+                <li>@notify</li>
+            }
+        </ul>
+    </Authorized>
+</AuthorizeView>
+
+<AuthorizeView>
+    <NotAuthorized>
+        <p>You are not authorized!</p>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+    private List<string> usersList = new List<string>();
+    private int currentCount = 0;
+    private HubConnection hubConnection;
+
+    private bool updateMenuIsOpen = false;
+
+    private string currentUserId;
+
+    // Цветовая схема
+    private string colorTheme = "white";
+    private string iconTheme => colorTheme == "white" ? "/sun.png" : "/moon_white.png";
+
+    private List<string> signalRNotifications = new List<string>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        string timestamp = _dateTimeService.GetDateTimeNow();
+
+        await GetCurrentUserData();
+
+        try
+        {
+            hubConnection = new HubConnectionBuilder().WithUrl(Navigation.ToAbsoluteUri("/color-theme-hub")).Build();
+            // Получение ответа от SignalR хаба для изменения цвета
+
+            hubConnection.On<string>("SwitchTheme", (theme) =>
+            {
+                colorTheme = theme;
+                InvokeAsync(StateHasChanged);
+            });
+            // Уведомление тех, кто подключён к SignalR хабу
+
+            hubConnection.On<string>("NotificateOthers", notification =>
+            {
+                signalRNotifications.Add(notification);
+                InvokeAsync(StateHasChanged);
+            });
+
+            await hubConnection.StartAsync();
+            _logger.LogInformation($"INFO: [{timestamp}] User successfully connected to SignalR hub");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"ERROR: [{timestamp}] Error connecting/interacting with SignalR hub  {ex.Message}");
+            throw new Exception($" Unexpected exception. Details {ex.Message}");
+        }
+    }
+
+    private async Task SwitchTheme()
+    {
+        string timestamp = _dateTimeService.GetDateTimeNow();
+
+        try
+        {
+            await hubConnection.SendAsync("SwitchColorTheme", colorTheme, currentUserId);
+            _logger.LogInformation($"INFO: [{timestamp}] UI theme successfully switched");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError($"ERROR: [{timestamp}] Error changing theme in SignalR hub  {ex.Message}");
+            throw new Exception($" Unexpected exception. Details {ex.Message}");
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (hubConnection != null)
+            await hubConnection.DisposeAsync();
+    }
+    // Получение из принципал данных текущего пользователя 
+
+    private async Task GetCurrentUserData()
+    {
+        string timestamp = _dateTimeService.GetDateTimeNow();
+        try
+        {
+            if (_authStateProvider is JwtAuthenticationStateProvider jwtAuthProvider)
+            {
+                var authState = await jwtAuthProvider.GetAuthenticationStateAsync();
+                var user = authState.User;
+                if (user.Identity.IsAuthenticated)
+                {
+                    currentUserId = user.Claims.FirstOrDefault(c => c.Type == "_id").Value;
+                    // currentUserEmail = user.Claims.FirstOrDefault(c => c.Type == "Email").Value;
+                    // currentUserLogin = user.Claims.FirstOrDefault(c => c.Type == "Login").Value;
+                    _logger.LogInformation($"INFO: [{timestamp}] User data successfully received from principal. User id - [{currentUserId}]");
+                }
+            }
+        }
+        catch(Exception ex)
+        {
+            _logger.LogError($"ERROR: [{timestamp}] Unexpected - {ex.Message}");
+            throw new Exception($"Не удалось получить данные пользователя из принципал, так как он скорее всего не вошёл в аккаунт. Details: {ex.Message}");
+        }
+    }
+}
