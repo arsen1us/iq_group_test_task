@@ -142,7 +142,7 @@
         </div>
     </NotAuthorized>
 </AuthorizeView>    
-@* </CascadingAuthenticationState> *@
+
 @code{
     private UserModel updateUser = new UserModel();
 
@@ -159,17 +159,17 @@
 
     private string searchInput { get; set; } = "";
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if(firstRender)
-        {
-            await _authStateProvider.GetAuthenticationStateAsync();
-        }
-    }
-
     protected override async Task OnInitializedAsync()
     {
         await GetUsersListAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await _authStateProvider.GetAuthenticationStateAsync();
+        }
     }
     // Получение списка пользователей
 
@@ -194,6 +194,10 @@
                 await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "jwt-token", newToken);
                 _logger.LogInformation($"INFO: [{timestamp}] Jwt-token successfully updated");
             }
+            else
+            {
+                _logger.LogError($"ERROR: [{timestamp}] Gettings users list request error. Status code - {response.StatusCode}");
+            }
         }
         catch(Exception ex)
         {
@@ -212,6 +216,7 @@
         else
         {
             currentUserId = string.Empty;
+            updateUser = new UserModel();
         }
     }
     // Измененить пользователя
@@ -242,8 +247,11 @@
                         await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "jwt-token", newToken);
                         _logger.LogInformation($"INFO: [{timestamp}] Jwt-token successfully updated");
                     }
+                    else
+                    {
+                        _logger.LogError($"ERROR: [{timestamp}] Updating user request error. Status code - {response.StatusCode}");
+                    }
                 }
-
             }
         }
         catch (Exception ex)
@@ -253,7 +261,7 @@
         }
     }
 
-    // Удаление пользователя
+    // Удалить пользователя
 
     private async Task DeleteUserAsync(string id)
     {
@@ -266,14 +274,21 @@
                 var response = await _httpClient.DeleteAsync($"api/user/{id}");
                 if(response.IsSuccessStatusCode)
                 {
-                    // log
                     await GetUsersListAsync();
+                    _logger.LogError($"INFO: [{timestamp}] User successfully deleted from database. User id - [{id}]");
+                }
+                else if (response.StatusCode == HttpStatusCode.Unauthorized)
+                {
+                    var updateTokenResponse = await _httpClient.GetAsync($"api/token/refresh-token");
+                    string newToken = await updateTokenResponse.Content.ReadAsStringAsync();
+                    await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "jwt-token", newToken);
+                    _logger.LogInformation($"INFO: [{timestamp}] Jwt-token successfully updated");
                 }
                 else
                 {
-                    // log
-                    usersList = new List<UserModel>();
+                    _logger.LogError($"ERROR: [{timestamp}] Deletign user from database request error. Status code - {response.StatusCode}");
                 }
+
             }
             catch(Exception ex)
             {
@@ -303,12 +318,9 @@
                     _logger.LogInformation($"INFO: [{timestamp}] Login verification completed successfully. Login - [{updateUser.Login}]");
                 }
             }
-            else if (response.StatusCode == HttpStatusCode.Unauthorized)
+            else
             {
-                var updateTokenResponse = await _httpClient.GetAsync($"api/token/refresh-token");
-                string newToken = await updateTokenResponse.Content.ReadAsStringAsync();
-                await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "jwt-token", newToken);
-                _logger.LogInformation($"INFO: [{timestamp}] Jwt-token successfully updated");
+                _logger.LogError($"ERROR: [{timestamp}] Checking login request error. Status code - {response.StatusCode}");
             }
         }
         catch (Exception ex)
@@ -337,12 +349,9 @@
                     _logger.LogInformation($"INFO: [{timestamp}] Email verification completed successfully. Email - [{updateUser.Email}]");
                 }
             }
-            else if (response.StatusCode == HttpStatusCode.Unauthorized)
+            else
             {
-                var updateTokenResponse = await _httpClient.GetAsync($"api/token/refresh-token");
-                string newToken = await updateTokenResponse.Content.ReadAsStringAsync();
-                await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "jwt-token", newToken);
-                _logger.LogInformation($"INFO: [{timestamp}] Jwt-token successfully updated");
+                _logger.LogError($"ERROR: [{timestamp}] Checking email request error. Status code - {response.StatusCode}");
             }
         }
         catch (Exception ex)
@@ -356,11 +365,6 @@
     private async Task TogglePasswordVisible()
     {
         isPasswordVisible = !isPasswordVisible;
-    }
-
-    private async Task AddNewUserAsync()
-    {
-
     }
     // Поиск пользователей по логину
 
@@ -387,6 +391,10 @@
                     string newToken = await updateTokenResponse.Content.ReadAsStringAsync();
                     await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "jwt-token", newToken);
                     _logger.LogInformation($"INFO: [{timestamp}] Jwt-token successfully updated");
+                }
+                else
+                {
+                    _logger.LogError($"ERROR: [{timestamp}] Searhing users by login request error. Status code - {response.StatusCode}");
                 }
             }
             catch (Exception ex)

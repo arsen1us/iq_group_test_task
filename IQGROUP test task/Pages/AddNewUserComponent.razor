@@ -7,7 +7,7 @@
 <Popup IsVisible="@popupIsVisible" OnClose="@HandlePopupClose">
     <h3>Добавить нового пользователя</h3>
 
-    <EditForm Model="@regUser" OnValidSubmit="@HandleRegisterAsync">
+    <EditForm Model="@regUser" OnValidSubmit="@AddNewUserAsync">
         <DataAnnotationsValidator />
 
         <div class="form-group">
@@ -84,33 +84,43 @@
     private bool isConfirmPasswordVisible = false;
     private string confirmPasswordInputType => isConfirmPasswordVisible ? "text" : "password";
     private string visibleConfirmPassImgSrc => isConfirmPasswordVisible ? "/visible_white.png" : "/hide_white.png";
-    // Отправить запрос на рагистрацию
+    // Отправить запрос на добавление нового пользователя
 
-    private async Task HandleRegisterAsync()
+    private async Task AddNewUserAsync()
     {
         string timestamp = _dateTimeService.GetDateTimeNow();
-        try
+        if (loginAvailability == "Логин доступен" && emailAvailability == "Почта доступна")
         {
-            var response = await _httpClient.PostAsJsonAsync("api/user/reg", regUser);
 
-            if (response.IsSuccessStatusCode)
+
+            try
             {
-                var content = await response.Content.ReadFromJsonAsync<AuthResponseModel>();
-                if (content != null)
-                {
-                    // log
-                    HandlePopupClose(false);
+                var response = await _httpClient.PostAsJsonAsync("api/user/reg", regUser);
 
-                    // Уведомление для обновления списка
-                    await OnUserSuccessfullyAdded.InvokeAsync(null);
-                    _logger.LogInformation($"INFO: [{timestamp}] New user successfully added to database. New user id - [{content.UserId}]");
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadFromJsonAsync<AuthResponseModel>();
+                    if (content != null)
+                    {
+                        // log
+                        HandlePopupClose(false);
+
+                        // Уведомление для обновления списка
+                        await OnUserSuccessfullyAdded.InvokeAsync(null);
+                        _logger.LogInformation($"INFO: [{timestamp}] New user successfully added to database. New user id - [{content.UserId}]");
+                    }
+                }
+                else
+                {
+                    _logger.LogError($"ERROR: [{timestamp}] Registration request error. Status code - {response.StatusCode}");
                 }
             }
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError($"ERROR: [{timestamp}] Unexpected - {ex.Message}");
-            throw new Exception($" Unexpected exception. Details {ex.Message}");
+
+            catch (Exception ex)
+            {
+                _logger.LogError($"ERROR: [{timestamp}] Unexpected - {ex.Message}");
+                throw new Exception($" Unexpected exception. Details {ex.Message}");
+            }
         }
     }
     // Проверка логина на уникальность
@@ -133,6 +143,10 @@
                     _logger.LogInformation($"INFO: [{timestamp}] Login checking completed successfully. Login - [{regUser.Login}]");
                 }
             }
+            else
+            {
+                _logger.LogError($"ERROR: [{timestamp}] Checking login request error. Status code - {response.StatusCode}");
+            }
         }
         catch(Exception ex)
         {
@@ -152,12 +166,16 @@
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
-                if (content is null)
+                if (content != null)
                 {
                     bool.TryParse(content, out isAvailable);
                     emailAvailability = isAvailable == true ? "Почта доступна" : "Почта занята";
                     _logger.LogInformation($"INFO: [{timestamp}] Email checking completed successfully. Email - [{regUser.Email}]");
                 }
+            }
+            else
+            {
+                _logger.LogError($"ERROR: [{timestamp}] Checking email request error. Status code - {response.StatusCode}");
             }
         }
         catch (Exception ex)

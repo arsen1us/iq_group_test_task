@@ -141,7 +141,6 @@ C:\Users\gamer\Source\Repos\iq_group_test_task\IQGROUP test task\obj\Debug\net6.
 C:\Users\gamer\Source\Repos\iq_group_test_task\IQGROUP test task\obj\Debug\net6.0\IQGROUP test task.genruntimeconfig.cache
 C:\Users\gamer\Source\Repos\iq_group_test_task\IQGROUP test task\obj\Debug\net6.0\ref\IQGROUP test task.dll
 C:\Users\gamer\Source\Repos\iq_group_test_task\IQGROUP test task\bin\Debug\net6.0\Blazored.LocalStorage.dll
-C:\Users\gamer\Source\Repos\iq_group_test_task\IQGROUP test task\obj\Debug\net6.0\IQGROUP .F0DAF4FB.Up2Date
 C:\Users\gamer\Source\Repos\iq_group_test_task_copy\IQGROUP test task\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\gamer\Source\Repos\iq_group_test_task_copy\IQGROUP test task\bin\Debug\net6.0\appsettings.json
 C:\Users\gamer\Source\Repos\iq_group_test_task_copy\IQGROUP test task\bin\Debug\net6.0\IQGROUP test task.staticwebassets.runtime.json
@@ -219,3 +218,4 @@ C:\Users\gamer\Source\Repos\iq_group_test_task_copy\IQGROUP test task\obj\Debug\
 C:\Users\gamer\Source\Repos\iq_group_test_task_copy\IQGROUP test task\obj\Debug\net6.0\IQGROUP test task.pdb
 C:\Users\gamer\Source\Repos\iq_group_test_task_copy\IQGROUP test task\obj\Debug\net6.0\IQGROUP test task.genruntimeconfig.cache
 C:\Users\gamer\Source\Repos\iq_group_test_task_copy\IQGROUP test task\obj\Debug\net6.0\ref\IQGROUP test task.dll
+C:\Users\gamer\Source\Repos\iq_group_test_task\IQGROUP test task\obj\Debug\net6.0\IQGROUP test task.csproj.CopyComplete

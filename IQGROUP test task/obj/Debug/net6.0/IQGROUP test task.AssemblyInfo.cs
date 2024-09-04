@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("IQGROUP test task")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+54e6af26880e57e85964067fe15cae5527d7e6ae")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3689d874d61754f5c3bca0c6b693e76ade4d9e0f")]
 [assembly: System.Reflection.AssemblyProductAttribute("IQGROUP test task")]
 [assembly: System.Reflection.AssemblyTitleAttribute("IQGROUP test task")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

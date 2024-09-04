@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "OUPrEC+I948+LPxg+yPk717oBs0TgwO5ICi24WcAGviaHhqcmF8EjGnx3R75+JPsFpMOOIPjjEMtyBwAVcHpoA==",
+  "dgSpecHash": "39ExG7aNCafxrnSxDqCloPCyF5Gtphb9Bhs/a+nfxQ3dHJatAGDzQYVmbnUbzrEK37lS+TXwQMk+p6rb3++teg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task_copy\\IQGROUP test task\\IQGROUP test task.csproj",
+  "projectFilePath": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\IQGROUP test task.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\gamer\\.nuget\\packages\\awssdk.core\\3.7.100.14\\awssdk.core.3.7.100.14.nupkg.sha512",
     "C:\\Users\\gamer\\.nuget\\packages\\awssdk.securitytoken\\3.7.100.14\\awssdk.securitytoken.3.7.100.14.nupkg.sha512",

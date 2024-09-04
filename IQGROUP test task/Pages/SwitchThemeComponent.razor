@@ -113,8 +113,10 @@
                 if (user.Identity.IsAuthenticated)
                 {
                     currentUserId = user.Claims.FirstOrDefault(c => c.Type == "_id").Value;
+
                     // currentUserEmail = user.Claims.FirstOrDefault(c => c.Type == "Email").Value;
                     // currentUserLogin = user.Claims.FirstOrDefault(c => c.Type == "Login").Value;
+
                     _logger.LogInformation($"INFO: [{timestamp}] User data successfully received from principal. User id - [{currentUserId}]");
                 }
             }

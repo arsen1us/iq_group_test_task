@@ -109,6 +109,7 @@
         }
         catch (Exception ex)
         {
+            await _jsRuntime.InvokeVoidAsync("localStorage.removeItem", "jwt-token");
             throw new Exception($"Не удалось получить данные пользователя из принципал, так как он скорее всего не вошёл в аккаунт. Details: {ex.Message}");
         }
     }
@@ -152,6 +153,10 @@
                 await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "jwt-token", newToken);
                 _logger.LogInformation($"INFO: [{timestamp}] Jwt-token successfully updated");
             }
+            else
+            {
+                _logger.LogError($"ERROR: [{timestamp}] Getting user data request error. Status code - {response.StatusCode}");
+            }
         }
         catch(Exception ex)
         {
@@ -159,7 +164,7 @@
             throw new Exception($" Unexpected exception. Details {ex.Message}");
         }
     }
-    // Обновление пользователя вместе с с jwt-токеном
+    // Обновление данных текущего пользователя и обновление и добавление jwt-токена в localStorage
 
     private async Task UpdateUserAsyncWithUpdateJwt(string id)
     {
@@ -198,6 +203,10 @@
                         await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "jwt-token", newToken);
                         _logger.LogInformation($"INFO: [{timestamp}] Jwt-token successfully updated");
                     }
+                    else
+                    {
+                        _logger.LogError($"ERROR: [{timestamp}] Updating user with updating jwt-token request error. Status code - {response.StatusCode}");
+                    }
                 }
 
             }
@@ -228,12 +237,9 @@
                     _logger.LogInformation($"INFO: [{timestamp}] Login verification completed successfully. Login - [{updateUser.Login}]");
                 }
             }
-            else if (response.StatusCode == HttpStatusCode.Unauthorized)
+            else
             {
-                var updateTokenResponse = await _httpClient.GetAsync($"api/token/refresh-token");
-                string newToken = await updateTokenResponse.Content.ReadAsStringAsync();
-                await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "jwt-token", newToken);
-                _logger.LogInformation($"INFO: [{timestamp}] Jwt-token successfully updated");
+                _logger.LogError($"ERROR: [{timestamp}] Checking login request error. Status code - {response.StatusCode}");
             }
         }
         catch (Exception ex)
@@ -262,12 +268,9 @@
                     _logger.LogInformation($"INFO: [{timestamp}] Email verification completed successfully. Email - [{updateUser.Email}]");
                 }
             }
-            else if (response.StatusCode == HttpStatusCode.Unauthorized)
+            else
             {
-                var updateTokenResponse = await _httpClient.GetAsync($"api/token/refresh-token");
-                string newToken = await updateTokenResponse.Content.ReadAsStringAsync();
-                await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "jwt-token", newToken);
-                _logger.LogInformation($"INFO: [{timestamp}] Jwt-token successfully updated");
+                _logger.LogError($"ERROR: [{timestamp}] Checking email request error. Status code - {response.StatusCode}");
             }
         }
         catch (Exception ex)

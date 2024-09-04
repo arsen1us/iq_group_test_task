@@ -48,10 +48,7 @@
     private string visiblePassImgSrc => isPasswordVisible ? "/visible_white.png" : "/hide_white.png";
     // Отправить запрос на аутентификацию
 
-    protected override async Task OnInitializedAsync()
-    {
-
-    }
+    protected override async Task OnInitializedAsync() { }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -60,6 +57,7 @@
             await _authStateProvider.GetAuthenticationStateAsync();
         }
     }
+    // Отправить запрос на аутентификацию
 
     private async Task HandleAuthAsync()
     {
@@ -84,6 +82,10 @@
                     _logger.LogInformation($"INFO: [{timestamp}] User successfully authenticated. User id - [{content.UserId}]");
                     HandlePopupClose(false);
                 }
+            }
+            else
+            {
+                _logger.LogError($"ERROR: [{timestamp}] Authentication request error. Status code - {response.StatusCode}");
             }
         }
         catch (Exception ex)

@@ -95,6 +95,7 @@
             await _authStateProvider.GetAuthenticationStateAsync();
         }
     }
+    // Зарегистрировать нового пользователя
 
     private async Task HandleRegisterAsync()
     {
@@ -121,6 +122,10 @@
                         HandlePopupClose(false);
                         _logger.LogInformation($"INFO: [{timestamp}] User successfully registered. User id - [{content.UserId}]");
                     }
+                }
+                else
+                {
+                    _logger.LogError($"ERROR: [{timestamp}] Registration request error. Status code - {response.StatusCode}");
                 }
             }
             catch (Exception ex)
@@ -150,6 +155,10 @@
                     _logger.LogInformation($"INFO: [{timestamp}] Login checking completed successfully. Login - [{regUser.Login}]");
                 }
             }
+            else
+            {
+                _logger.LogError($"ERROR: [{timestamp}] Checking login request error. Status code - {response.StatusCode}");
+            }
         }
         catch (Exception ex)
         {
@@ -176,6 +185,10 @@
                     emailAvailability = isAvailable == true ? "Почта доступна" : "Почта занята";
                     _logger.LogInformation($"INFO: [{timestamp}] Email checking completed successfully. Email - [{regUser.Email}]");
                 }
+            }
+            else
+            {
+                _logger.LogError($"ERROR: [{timestamp}] Checking email request error. Status code - {response.StatusCode}");
             }
         }
         catch (Exception ex)
