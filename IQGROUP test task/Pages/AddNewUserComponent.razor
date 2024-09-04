@@ -78,12 +78,12 @@
 
     private bool isPasswordVisible = false;
     private string passwordInputType => isPasswordVisible ? "text" : "password";
-    private string visiblePassImgSrc => isPasswordVisible ? "/visible_white.png" : "/hide_white.png";
+    private string visiblePassImgSrc => isPasswordVisible ? "/img/visible_white.png" : "/img/hide_white.png";
     // Показать/скрыть видимость подтверждения пароля
 
     private bool isConfirmPasswordVisible = false;
     private string confirmPasswordInputType => isConfirmPasswordVisible ? "text" : "password";
-    private string visibleConfirmPassImgSrc => isConfirmPasswordVisible ? "/visible_white.png" : "/hide_white.png";
+    private string visibleConfirmPassImgSrc => isConfirmPasswordVisible ? "/img/visible_white.png" : "/img/hide_white.png";
     // Отправить запрос на добавление нового пользователя
 
     private async Task AddNewUserAsync()

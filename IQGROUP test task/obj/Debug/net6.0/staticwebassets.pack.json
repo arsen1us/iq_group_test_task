@@ -53,52 +53,52 @@
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
-      "Id": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\favicon.ico",
-      "PackagePath": "staticwebassets\\favicon.ico"
+      "Id": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\img\\favicon.ico",
+      "PackagePath": "staticwebassets\\img\\favicon.ico"
     },
     {
-      "Id": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\hide.png",
-      "PackagePath": "staticwebassets\\hide.png"
+      "Id": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\img\\hide.png",
+      "PackagePath": "staticwebassets\\img\\hide.png"
     },
     {
-      "Id": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\hide_white.png",
-      "PackagePath": "staticwebassets\\hide_white.png"
+      "Id": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\img\\hide_white.png",
+      "PackagePath": "staticwebassets\\img\\hide_white.png"
     },
     {
-      "Id": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\moon_white.png",
-      "PackagePath": "staticwebassets\\moon_white.png"
+      "Id": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\img\\moon_white.png",
+      "PackagePath": "staticwebassets\\img\\moon_white.png"
     },
     {
-      "Id": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\pencil.png",
-      "PackagePath": "staticwebassets\\pencil.png"
+      "Id": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\img\\pencil.png",
+      "PackagePath": "staticwebassets\\img\\pencil.png"
     },
     {
-      "Id": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\pencil_white.png",
-      "PackagePath": "staticwebassets\\pencil_white.png"
+      "Id": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\img\\pencil_white.png",
+      "PackagePath": "staticwebassets\\img\\pencil_white.png"
     },
     {
-      "Id": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\sun.png",
-      "PackagePath": "staticwebassets\\sun.png"
+      "Id": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\img\\sun.png",
+      "PackagePath": "staticwebassets\\img\\sun.png"
     },
     {
-      "Id": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\sun_white.png",
-      "PackagePath": "staticwebassets\\sun_white.png"
+      "Id": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\img\\sun_white.png",
+      "PackagePath": "staticwebassets\\img\\sun_white.png"
     },
     {
-      "Id": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\trash_box.png",
-      "PackagePath": "staticwebassets\\trash_box.png"
+      "Id": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\img\\trash_box.png",
+      "PackagePath": "staticwebassets\\img\\trash_box.png"
     },
     {
-      "Id": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\trash_box_white.png",
-      "PackagePath": "staticwebassets\\trash_box_white.png"
+      "Id": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\img\\trash_box_white.png",
+      "PackagePath": "staticwebassets\\img\\trash_box_white.png"
     },
     {
-      "Id": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\visible.png",
-      "PackagePath": "staticwebassets\\visible.png"
+      "Id": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\img\\visible.png",
+      "PackagePath": "staticwebassets\\img\\visible.png"
     },
     {
-      "Id": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\visible_white.png",
-      "PackagePath": "staticwebassets\\visible_white.png"
+      "Id": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\img\\visible_white.png",
+      "PackagePath": "staticwebassets\\img\\visible_white.png"
     },
     {
       "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.IQGROUP test task.Microsoft.AspNetCore.StaticWebAssets.props",

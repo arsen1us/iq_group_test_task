@@ -68,10 +68,10 @@
                                         <td>
                                             <div class="button-container">
                                                 <button @onclick="() => HandleUpdateMenu(user._id)">
-                                                    <img src="/pencil_white.png" width="25" height="25"/>
+                                                    <img src="/img/pencil_white.png" width="25" height="25" />
                                                 </button>
                                                 <button @onclick="() => DeleteUserAsync(user._id)">
-                                                    <img src="/trash_box_white.png" width="25" height="25" />
+                                                    <img src="/img/trash_box_white.png" width="25" height="25" />
                                                 </button>
                                             </div>
                                             
@@ -151,7 +151,7 @@
 
     private bool isPasswordVisible = false;
     private string passwordInputType => isPasswordVisible ? "text" : "password";
-    private string visiblePassImgSrc => isPasswordVisible ? "/visible_white.png" : "/hide_white.png";
+    private string visiblePassImgSrc => isPasswordVisible ? "/img/visible_white.png" : "/img/hide_white.png";
 
     private List<UserModel> usersList = new List<UserModel>();
 

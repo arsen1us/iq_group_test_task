@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "LLeA326zYwHo/QZ1KmYKujXr3+tYxb78RRHlTWOIf/0=",
+  "Hash": "ekEUTMD9MrEbKEJVuwZOEM4aBN+I8lspND0NFtUatTc=",
   "Source": "IQGROUP test task",
   "BasePath": "_content/IQGROUP test task",
   "Mode": "Default",
@@ -283,12 +283,12 @@
       "OriginalItemSpec": "wwwroot\\css\\site.css"
     },
     {
-      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\favicon.ico",
+      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\img\\favicon.ico",
       "SourceId": "IQGROUP test task",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\",
       "BasePath": "_content/IQGROUP test task",
-      "RelativePath": "favicon.ico",
+      "RelativePath": "img/favicon.ico",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -299,15 +299,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\favicon.ico"
+      "OriginalItemSpec": "wwwroot\\img\\favicon.ico"
     },
     {
-      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\hide.png",
+      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\img\\hide.png",
       "SourceId": "IQGROUP test task",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\",
       "BasePath": "_content/IQGROUP test task",
-      "RelativePath": "hide.png",
+      "RelativePath": "img/hide.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -318,15 +318,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\hide.png"
+      "OriginalItemSpec": "wwwroot\\img\\hide.png"
     },
     {
-      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\hide_white.png",
+      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\img\\hide_white.png",
       "SourceId": "IQGROUP test task",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\",
       "BasePath": "_content/IQGROUP test task",
-      "RelativePath": "hide_white.png",
+      "RelativePath": "img/hide_white.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -337,15 +337,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\hide_white.png"
+      "OriginalItemSpec": "wwwroot\\img\\hide_white.png"
     },
     {
-      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\moon_white.png",
+      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\img\\moon_white.png",
       "SourceId": "IQGROUP test task",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\",
       "BasePath": "_content/IQGROUP test task",
-      "RelativePath": "moon_white.png",
+      "RelativePath": "img/moon_white.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -356,15 +356,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\moon_white.png"
+      "OriginalItemSpec": "wwwroot\\img\\moon_white.png"
     },
     {
-      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\pencil.png",
+      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\img\\pencil.png",
       "SourceId": "IQGROUP test task",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\",
       "BasePath": "_content/IQGROUP test task",
-      "RelativePath": "pencil.png",
+      "RelativePath": "img/pencil.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -375,15 +375,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\pencil.png"
+      "OriginalItemSpec": "wwwroot\\img\\pencil.png"
     },
     {
-      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\pencil_white.png",
+      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\img\\pencil_white.png",
       "SourceId": "IQGROUP test task",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\",
       "BasePath": "_content/IQGROUP test task",
-      "RelativePath": "pencil_white.png",
+      "RelativePath": "img/pencil_white.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -394,15 +394,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\pencil_white.png"
+      "OriginalItemSpec": "wwwroot\\img\\pencil_white.png"
     },
     {
-      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\sun.png",
+      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\img\\sun.png",
       "SourceId": "IQGROUP test task",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\",
       "BasePath": "_content/IQGROUP test task",
-      "RelativePath": "sun.png",
+      "RelativePath": "img/sun.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -413,15 +413,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\sun.png"
+      "OriginalItemSpec": "wwwroot\\img\\sun.png"
     },
     {
-      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\sun_white.png",
+      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\img\\sun_white.png",
       "SourceId": "IQGROUP test task",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\",
       "BasePath": "_content/IQGROUP test task",
-      "RelativePath": "sun_white.png",
+      "RelativePath": "img/sun_white.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -432,15 +432,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\sun_white.png"
+      "OriginalItemSpec": "wwwroot\\img\\sun_white.png"
     },
     {
-      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\trash_box.png",
+      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\img\\trash_box.png",
       "SourceId": "IQGROUP test task",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\",
       "BasePath": "_content/IQGROUP test task",
-      "RelativePath": "trash_box.png",
+      "RelativePath": "img/trash_box.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -451,15 +451,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\trash_box.png"
+      "OriginalItemSpec": "wwwroot\\img\\trash_box.png"
     },
     {
-      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\trash_box_white.png",
+      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\img\\trash_box_white.png",
       "SourceId": "IQGROUP test task",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\",
       "BasePath": "_content/IQGROUP test task",
-      "RelativePath": "trash_box_white.png",
+      "RelativePath": "img/trash_box_white.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -470,15 +470,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\trash_box_white.png"
+      "OriginalItemSpec": "wwwroot\\img\\trash_box_white.png"
     },
     {
-      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\visible.png",
+      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\img\\visible.png",
       "SourceId": "IQGROUP test task",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\",
       "BasePath": "_content/IQGROUP test task",
-      "RelativePath": "visible.png",
+      "RelativePath": "img/visible.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -489,15 +489,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\visible.png"
+      "OriginalItemSpec": "wwwroot\\img\\visible.png"
     },
     {
-      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\visible_white.png",
+      "Identity": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\img\\visible_white.png",
       "SourceId": "IQGROUP test task",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\gamer\\source\\repos\\iq_group_test_task\\IQGROUP test task\\wwwroot\\",
       "BasePath": "_content/IQGROUP test task",
-      "RelativePath": "visible_white.png",
+      "RelativePath": "img/visible_white.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -508,7 +508,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\visible_white.png"
+      "OriginalItemSpec": "wwwroot\\img\\visible_white.png"
     }
   ]
 }

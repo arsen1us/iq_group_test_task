@@ -13,6 +13,7 @@ using IQGROUP_test_task.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//Cors
 //builder.Services.AddCors(options =>
 //{
 //    options.AddPolicy("local", policy =>
@@ -23,18 +24,22 @@ var builder = WebApplication.CreateBuilder(args);
 //    });
 //});
 
-// Add services to the container.
-
 // Объект HttpContextAccessor для сервиса JwtAuthenticationStateProvider
+
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddRazorPages();
+
 builder.Services.AddScoped(sp => 
 new HttpClient 
 { 
     BaseAddress = new Uri("https://localhost:7078/")
 });
 builder.Services.AddServerSideBlazor();
+// Подключение сервиса SignalR
+
+builder.Services.AddSignalR();
+
 builder.Services.AddSingleton<WeatherForecastService>();
 
 builder.Services.AddControllers();
@@ -54,22 +59,23 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     };
 });
 
-builder.Services.AddSignalR();
+builder.Services.AddAuthorizationCore();
+
+// Получение строки подключения к mongodb из appsettings.json
+//var configurationBuilder = new ConfigurationBuilder();
+//configurationBuilder.SetBasePath(Directory.GetCurrentDirectory());
+//configurationBuilder.AddJsonFile("appsettings.json");
+//var config = configurationBuilder.Build();
+//string connectionString = config.GetConnectionString("MongoDb");
+
 // Подключение к БД
-
-var configurationBuilder = new ConfigurationBuilder();
-configurationBuilder.SetBasePath(Directory.GetCurrentDirectory());
-configurationBuilder.AddJsonFile("appsettings.json");
-
-var config = configurationBuilder.Build();
-string connectionString = config.GetConnectionString("MongoDb");
 
 builder.Services.AddSingleton<IMongoClient, MongoClient>(options =>
 {
     //var settings = options.GetRequiredService<MongoDatabaseSettings>();
-    return new MongoClient(config["MongoDbSettings:ConnectionString"]);
+    return new MongoClient(_configuration["MongoDbSettings:ConnectionString"]);
 });
-// Кастомные зависимости
+// Внеднение кастомных зависимоcтей  
 
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<ITokenService, TokenService>();
@@ -84,15 +90,11 @@ builder.Services.AddBlazoredLocalStorage();
 
 builder.Services.AddScoped<AuthenticationStateProvider, JwtAuthenticationStateProvider>();
 
-builder.Services.AddAuthorizationCore();
-
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -101,6 +103,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
@@ -115,10 +120,9 @@ app.MapHub<ColorThemeHub>("/color-theme-hub");
 
 //app.UseCors("local");
 
-app.MapControllers();
+app.MapRazorPages();
 
-app.UseAuthentication();
-app.UseAuthorization();
+app.MapControllers();
 
 //app.UseMiddleware<AuthorizeHeadersMiddleware>();
 
